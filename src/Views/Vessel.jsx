@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-
+import { Container, Col, Row } from "react-bootstrap";
+import Navbar from ".././Components/Navbar";
+import Table from ".././Components/Table";
 class Vessel extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,12 @@ class Vessel extends Component {
   componentWillUnmount() {}
 
   render() {
-    return <div></div>;
+    return (
+      <Fragment>
+        <Navbar />
+        <Table title="Vessel" />
+      </Fragment>
+    );
   }
 }
 

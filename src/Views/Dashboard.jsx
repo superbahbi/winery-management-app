@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Container, Col, Row } from "react-bootstrap";
 import Navbar from ".././Components/Navbar";
+import Table from ".././Components/Table";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,7 @@ class Dashboard extends Component {
     return (
       <Fragment>
         <Navbar />
+        <Table title="Dashboard" />
       </Fragment>
     );
   }

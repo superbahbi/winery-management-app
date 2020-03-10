@@ -11,9 +11,24 @@ import {
   FormControl,
   ListGroup
 } from "react-bootstrap";
+import {
+  Dashboard,
+  PeopleOutlineOutlined,
+  FileCopyOutlined,
+  WorkOutlineOutlined,
+  HistoryOutlined,
+  FormatAlignJustifyOutlined,
+  CheckBoxOutlined,
+  AccountBoxOutlined,
+  VpnKeyOutlined,
+  BallotOutlined,
+  MoveToInboxOutlined
+} from "@material-ui/icons/";
+
 import styled, { css } from "styled-components";
 const CustomNavbar = styled(Navbar)`
-  padding: 0 !important;
+  00e4d0padding: 0 !important;
+  background: linear-gradient(120deg, #5983e8, #00e4d0);
 `;
 const Brand = styled(Navbar.Brand)`
   margin-right: 0 !important;
@@ -21,8 +36,7 @@ const Brand = styled(Navbar.Brand)`
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   font-size: 1rem;
-  background-color: rgba(0, 0, 0, 0.25);
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 `;
 const CustomInput = styled(Form.Control)`
   width: 100%;
@@ -35,7 +49,7 @@ const CustomInput = styled(Form.Control)`
   height: inherit;
   :focus {
     color: #fff;
-    background-color: inherit;
+    background-color: transparent;
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
   }
@@ -44,8 +58,9 @@ const CustomButton = styled(Button)`
   height: inherit;
 `;
 const Sidebar = styled(Nav)`
+  display: block !important;
   position: fixed;
-  padding: 10px 20px;
+  padding: 40px 20px;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
   flex-direction: column !important;
 `;
@@ -73,11 +88,15 @@ const SidebarNav = styled(Nav)`
   flex-direction: column !important;
 `;
 const SidebarNavlink = styled(Nav.Link)`
+  font-size: 20px;
   font-weight: 500;
   color: #333;
   :active {
     color: #007bff;
   }
+`;
+const SidebarIcon = styled.span`
+  margin-right: 5px;
 `;
 class Navi extends Component {
   constructor(props) {
@@ -103,9 +122,10 @@ class Navi extends Component {
       <Fragment>
         <CustomNavbar
           bg="dark"
-          class="fixed-top bg-dark flex-md-nowrap p-0 shadow"
+          className="fixed-top bg-dark flex-md-nowrap p-0 shadow"
         >
           <Brand className="col-sm-3 col-md-2" href="#">
+            <SidebarIcon className="icon ion-ios-infinite" id="brand-logo" />
             Winery Management
           </Brand>
           <CustomInput type="text" placeholder="Search" aria-label="Search" />
@@ -116,67 +136,85 @@ class Navi extends Component {
 
         <Container fluid={true}>
           <Row>
-            <Sidebar className="col-md-2 d-none d-md-block bg-light sidebar">
+            <Sidebar className="col-md-2">
               <SidebarSticky>
                 <SidebarNav>
                   <Nav.Item>
-                    <SidebarNavlink class="active" href="#">
-                      <span data-feather="home"></span>
-                      Dashboard <span class="sr-only">(current)</span>
+                    <SidebarNavlink href="dashboard">
+                      <SidebarIcon>
+                        <Dashboard />
+                      </SidebarIcon>
+                      Dashboard
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="file"></span>
+                      <SidebarIcon>
+                        <BallotOutlined />
+                      </SidebarIcon>
                       Lots
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
-                      <span data-feather="file"></span>
+                    <SidebarNavlink href="vessel">
+                      <SidebarIcon>
+                        <MoveToInboxOutlined />
+                      </SidebarIcon>
                       Vessel
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="file"></span>
+                      <SidebarIcon>
+                        <WorkOutlineOutlined />
+                      </SidebarIcon>
                       Work Order
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="layers"></span>
+                      <SidebarIcon>
+                        <CheckBoxOutlined />
+                      </SidebarIcon>
                       Analysis
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="layers"></span>
+                      <SidebarIcon>
+                        <FormatAlignJustifyOutlined />
+                      </SidebarIcon>
                       Inventory
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="layers"></span>
+                      <SidebarIcon>
+                        <HistoryOutlined />
+                      </SidebarIcon>
                       History
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="users"></span>
+                      <SidebarIcon>
+                        <PeopleOutlineOutlined />
+                      </SidebarIcon>
                       Customers
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="bar-chart-2"></span>
+                      <SidebarIcon>
+                        <FileCopyOutlined />
+                      </SidebarIcon>
                       Reports
                     </SidebarNavlink>
                   </Nav.Item>
                 </SidebarNav>
 
                 <SidebarHeading>
-                  <span>Saved reports</span>
+                  <span>Settings</span>
                   <a
                     class="d-flex align-items-center text-muted"
                     href="#"
@@ -188,26 +226,18 @@ class Navi extends Component {
                 <SidebarNav>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="file-text"></span>
-                      Current month
+                      <SidebarIcon>
+                        <AccountBoxOutlined />
+                      </SidebarIcon>
+                      Account
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
                     <SidebarNavlink href="#">
-                      <span data-feather="file-text"></span>
-                      Last quarter
-                    </SidebarNavlink>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <SidebarNavlink href="#">
-                      <span data-feather="file-text"></span>
-                      Social engagement
-                    </SidebarNavlink>
-                  </Nav.Item>
-                  <Nav.Item>
-                    <SidebarNavlink href="#">
-                      <span data-feather="file-text"></span>
-                      Year-end sale
+                      <SidebarIcon>
+                        <VpnKeyOutlined />
+                      </SidebarIcon>
+                      Security
                     </SidebarNavlink>
                   </Nav.Item>
                 </SidebarNav>
