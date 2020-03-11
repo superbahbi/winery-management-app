@@ -7,52 +7,19 @@ const TableTitle = styled.h1``;
 class Table extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: {} };
-    this.state = {
-      products: [
-        {
-          id: 1,
-          name: "TV",
-          price: 1000
-        },
-        {
-          id: 2,
-          name: "Mobile",
-          price: 500
-        },
-        {
-          id: 3,
-          name: "Book",
-          price: 20
-        }
-      ],
-      columns: [
-        {
-          dataField: "id",
-          text: "Product ID"
-        },
-        {
-          dataField: "name",
-          text: "Product Name"
-        },
-        {
-          dataField: "price",
-          text: "Product Price",
-          sort: true
-        }
-      ]
-    };
+    this.state = { products: [], columns: [] };
   }
 
-  componentDidMount() {}
+  // componentDidMount() {}
 
-  shouldComponentUpdate(nextProps, nextState) {}
+  // shouldComponentUpdate(nextProps, nextState) {}
 
-  componentDidUpdate(prevProps, prevState) {}
+  // componentDidUpdate(prevProps, prevState) {}
 
-  componentWillUnmount() {}
+  // componentWillUnmount() {}
 
   render() {
+    console.log(this.state);
     return (
       <Fragment>
         <Container style={{ marginTop: 50 }}>
@@ -61,8 +28,8 @@ class Table extends Component {
             striped
             hover
             keyField="id"
-            data={this.state.products}
-            columns={this.state.columns}
+            data={this.props.products}
+            columns={this.props.columns}
           />
         </Container>
       </Fragment>
@@ -70,6 +37,6 @@ class Table extends Component {
   }
 }
 
-Table.propTypes = { data: PropTypes.object };
+Table.propTypes = { product: PropTypes.array, columns: PropTypes.array };
 
 export default Table;

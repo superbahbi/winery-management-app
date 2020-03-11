@@ -8,15 +8,9 @@ class Dashboard extends Component {
     this.state = { title: "Dashboard" };
   }
 
-  componentWillMount() {}
-
   componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {}
-
   shouldComponentUpdate(nextProps, nextState) {}
-
-  componentWillUpdate(nextProps, nextState) {}
 
   componentDidUpdate(prevProps, prevState) {}
 
