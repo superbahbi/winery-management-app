@@ -7,10 +7,22 @@ const TableTitle = styled.h1``;
 class Table extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [], columns: [] };
+    this.state = {
+      products: [],
+      columns: [
+        {
+          dataField: "",
+          text: "No data found!"
+        }
+      ]
+    };
   }
 
-  // componentDidMount() {}
+  componentDidMount() {
+    if (this.props.products) {
+      this.setState({ products: this.props.products });
+    }
+  }
 
   // shouldComponentUpdate(nextProps, nextState) {}
 
@@ -19,7 +31,6 @@ class Table extends Component {
   // componentWillUnmount() {}
 
   render() {
-    console.log(this.state);
     return (
       <Fragment>
         <Container style={{ marginTop: 50 }}>
@@ -28,8 +39,8 @@ class Table extends Component {
             striped
             hover
             keyField="id"
-            data={this.props.products}
-            columns={this.props.columns}
+            data={this.props.products || this.state.products}
+            columns={this.props.columns || this.state.columns}
           />
         </Container>
       </Fragment>

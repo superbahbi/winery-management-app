@@ -16,6 +16,7 @@ class Lots extends Component {
       title: "Lots",
       products: [
         {
+          id: 0,
           code: "19SYRBZ",
           vintage: 2019,
           varietal: "Syrah",
@@ -26,6 +27,7 @@ class Lots extends Component {
           gross: 20.5
         },
         {
+          id: 1,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -36,6 +38,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 2,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -46,6 +49,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 3,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -56,6 +60,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 4,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -66,6 +71,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 5,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -76,6 +82,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 6,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -86,6 +93,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 7,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -96,6 +104,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 8,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -106,6 +115,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 9,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -116,6 +126,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 10,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -126,6 +137,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 11,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -136,6 +148,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 12,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -146,6 +159,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 13,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -156,6 +170,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 14,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -166,6 +181,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 15,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -176,6 +192,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 16,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -186,6 +203,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 17,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -196,6 +214,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 18,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -206,6 +225,7 @@ class Lots extends Component {
           gross: 48
         },
         {
+          id: 19,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -216,96 +236,7 @@ class Lots extends Component {
           gross: 48
         },
         {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
-          code: "19CSRBZ18",
-          vintage: 2019,
-          varietal: "Syrah",
-          clone: "4",
-          vineyard: "RBZ",
-          appelation: "El Pomar",
-          stage: "1",
-          gross: 48
-        },
-        {
+          id: 20,
           code: "19CSRBZ18",
           vintage: 2019,
           varietal: "Syrah",
@@ -317,6 +248,11 @@ class Lots extends Component {
         }
       ],
       columns: [
+        {
+          dataField: "id",
+          text: "Id",
+          hidden: true
+        },
         {
           dataField: "code",
           text: "Product Code",
