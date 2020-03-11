@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import BootstrapTable from "react-bootstrap-table-next";
 const TableTitle = styled.h1``;
 class Table extends Component {
   constructor(props) {
     super(props);
+    this.state = { data: {} };
     this.state = {
       products: [
         {
@@ -43,15 +44,9 @@ class Table extends Component {
     };
   }
 
-  componentWillMount() {}
-
   componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {}
-
   shouldComponentUpdate(nextProps, nextState) {}
-
-  componentWillUpdate(nextProps, nextState) {}
 
   componentDidUpdate(prevProps, prevState) {}
 
@@ -75,6 +70,6 @@ class Table extends Component {
   }
 }
 
-Table.propTypes = {};
+Table.propTypes = { data: PropTypes.object };
 
 export default Table;

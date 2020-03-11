@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Navbar from ".././Components/Navbar";
-class Account extends Component {
+
+class History extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: "Account" };
   }
 
   componentWillMount() {}
@@ -25,12 +24,12 @@ class Account extends Component {
     return (
       <Fragment>
         <Navbar />
-        {this.state.title}
+        <Table title="History" />
       </Fragment>
     );
   }
 }
 
-Account.propTypes = { title: PropTypes.string };
+History.propTypes = {};
 
-export default Account;
+export default History;

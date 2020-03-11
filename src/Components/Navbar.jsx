@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import {
   Container,
   Row,
-  Col,
   Nav,
   Button,
   Navbar,
   Form,
-  FormControl,
   ListGroup
 } from "react-bootstrap";
 import {
@@ -25,7 +23,7 @@ import {
   MoveToInboxOutlined
 } from "@material-ui/icons/";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 const CustomNavbar = styled(Navbar)`
   00e4d0padding: 0 !important;
   background: linear-gradient(120deg, #5983e8, #00e4d0);
@@ -101,17 +99,12 @@ const SidebarIcon = styled.span`
 class Navi extends Component {
   constructor(props) {
     super(props);
+    this.state = { title: "Navbar" };
   }
-
-  componentWillMount() {}
 
   componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {}
-
   shouldComponentUpdate(nextProps, nextState) {}
-
-  componentWillUpdate(nextProps, nextState) {}
 
   componentDidUpdate(prevProps, prevState) {}
 
@@ -129,7 +122,7 @@ class Navi extends Component {
             Winery Management
           </Brand>
           <CustomInput type="text" placeholder="Search" aria-label="Search" />
-          <ListGroup as="ul" class="navbar-nav px-3">
+          <ListGroup as="ul" className="navbar-nav px-3">
             <CustomButton variant="dark">Signout</CustomButton>
           </ListGroup>
         </CustomNavbar>
@@ -140,7 +133,7 @@ class Navi extends Component {
               <SidebarSticky>
                 <SidebarNav>
                   <Nav.Item>
-                    <SidebarNavlink href="dashboard">
+                    <SidebarNavlink href="/dashboard">
                       <SidebarIcon>
                         <Dashboard />
                       </SidebarIcon>
@@ -148,7 +141,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/lots">
                       <SidebarIcon>
                         <BallotOutlined />
                       </SidebarIcon>
@@ -156,7 +149,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="vessel">
+                    <SidebarNavlink href="/vessel">
                       <SidebarIcon>
                         <MoveToInboxOutlined />
                       </SidebarIcon>
@@ -164,7 +157,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/workorder">
                       <SidebarIcon>
                         <WorkOutlineOutlined />
                       </SidebarIcon>
@@ -172,7 +165,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/analysis">
                       <SidebarIcon>
                         <CheckBoxOutlined />
                       </SidebarIcon>
@@ -180,7 +173,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/inventory">
                       <SidebarIcon>
                         <FormatAlignJustifyOutlined />
                       </SidebarIcon>
@@ -188,7 +181,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/history">
                       <SidebarIcon>
                         <HistoryOutlined />
                       </SidebarIcon>
@@ -196,7 +189,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/customers">
                       <SidebarIcon>
                         <PeopleOutlineOutlined />
                       </SidebarIcon>
@@ -204,7 +197,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/reports">
                       <SidebarIcon>
                         <FileCopyOutlined />
                       </SidebarIcon>
@@ -216,8 +209,8 @@ class Navi extends Component {
                 <SidebarHeading>
                   <span>Settings</span>
                   <a
-                    class="d-flex align-items-center text-muted"
-                    href="#"
+                    className="d-flex align-items-center text-muted"
+                    href="/"
                     aria-label="Add a new report"
                   >
                     +
@@ -225,7 +218,7 @@ class Navi extends Component {
                 </SidebarHeading>
                 <SidebarNav>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/account">
                       <SidebarIcon>
                         <AccountBoxOutlined />
                       </SidebarIcon>
@@ -233,7 +226,7 @@ class Navi extends Component {
                     </SidebarNavlink>
                   </Nav.Item>
                   <Nav.Item>
-                    <SidebarNavlink href="#">
+                    <SidebarNavlink href="/security">
                       <SidebarIcon>
                         <VpnKeyOutlined />
                       </SidebarIcon>
@@ -250,17 +243,6 @@ class Navi extends Component {
   }
 }
 
-Navbar.propTypes = {};
+Navbar.propTypes = { title: PropTypes.string };
 
 export default Navi;
-{
-  /* <CustomNavbar bg="dark" expand="lg" sm={3} md={2}>
-<Brand href="#home">Winery Management</Brand>
-<Form inline>
-  <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-</Form>
-<Button className="navbar-nav px-3" variant="outline-success">
-  Search
-</Button>
-</CustomNavbar> */
-}

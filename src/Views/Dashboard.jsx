@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Container, Col, Row } from "react-bootstrap";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    this.state = { title: "Dashboard" };
   }
 
   componentWillMount() {}
@@ -26,12 +26,12 @@ class Dashboard extends Component {
     return (
       <Fragment>
         <Navbar />
-        <Table title="Dashboard" />
+        <Table title={this.state.title} />
       </Fragment>
     );
   }
 }
 
-Dashboard.propTypes = {};
+Dashboard.propTypes = { title: PropTypes.string };
 
 export default Dashboard;
