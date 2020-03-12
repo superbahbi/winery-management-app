@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { AcUnitOutlined } from "@material-ui/icons/";
 
 const FormContainer = styled.div`
@@ -59,14 +57,26 @@ const FormForgot = styled.a`
   opacity: 0.9;
   text-decoration: none;
 `;
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      firstName: {
+        value: ""
+      },
+      lastName: {
+        value: ""
+      },
+      email: {
+        value: ""
+      },
       username: {
         value: ""
       },
       password: {
+        value: ""
+      },
+      repeatPassword: {
         value: ""
       }
     };
@@ -108,6 +118,33 @@ class Login extends Component {
             <FormGroup>
               <FormInput
                 type="text"
+                placeholder="First name"
+                name="firstName"
+                value={this.state.firstName.value}
+                onChange={this.changeHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormInput
+                type="text"
+                placeholder="Last Name"
+                name="lastName"
+                value={this.state.lastName.value}
+                onChange={this.changeHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormInput
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={this.state.email.value}
+                onChange={this.changeHandler}
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormInput
+                type="text"
                 placeholder="Username"
                 name="username"
                 value={this.state.username.value}
@@ -124,13 +161,22 @@ class Login extends Component {
               />
             </FormGroup>
             <FormGroup>
+              <FormInput
+                type="password"
+                placeholder="Repeat Password"
+                name="repeatPassword"
+                value={this.state.repeatPassword.value}
+                onChange={this.changeHandler}
+              />
+            </FormGroup>
+            <FormGroup>
               <FormButton className="btn btn-dark" type="button">
-                Login
+                Signup
               </FormButton>
             </FormGroup>
             <FormGroup>
-              <FormForgot class="forgot" href="#">
-                Forgot your email or password?
+              <FormForgot class="forgot" href="/login">
+                Already have an account?
               </FormForgot>
             </FormGroup>
           </Form>
@@ -140,6 +186,6 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {};
+Signup.propTypes = {};
 
-export default Login;
+export default Signup;
