@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Index from "./Views/Index";
+import Login from "./Views/Login";
+import Signup from "./Views/Signup";
 import Dashboard from "./Views/Dashboard";
 import Lots from "./Views/Lots";
 import Vessel from "./Views/Vessel";
@@ -18,6 +20,8 @@ function Routes() {
     <main>
       <Switch>
         <Route path="/" component={Index} exact />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/lots" component={Lots} />
         <Route path="/vessel" component={Vessel} />
