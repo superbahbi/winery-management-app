@@ -61,6 +61,9 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      companyCode: {
+        value: ""
+      },
       firstName: {
         value: ""
       },
@@ -118,10 +121,21 @@ class Signup extends Component {
             <FormGroup>
               <FormInput
                 type="text"
+                placeholder="Company Code"
+                name="companyCode"
+                value={this.state.companyCode.value}
+                onChange={this.changeHandler}
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormInput
+                type="text"
                 placeholder="First name"
                 name="firstName"
                 value={this.state.firstName.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -131,6 +145,7 @@ class Signup extends Component {
                 name="lastName"
                 value={this.state.lastName.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -140,6 +155,7 @@ class Signup extends Component {
                 name="email"
                 value={this.state.email.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -149,6 +165,7 @@ class Signup extends Component {
                 name="username"
                 value={this.state.username.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -158,6 +175,7 @@ class Signup extends Component {
                 name="password"
                 value={this.state.password.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -167,6 +185,7 @@ class Signup extends Component {
                 name="repeatPassword"
                 value={this.state.repeatPassword.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -186,6 +205,14 @@ class Signup extends Component {
   }
 }
 
-Signup.propTypes = {};
+Signup.propTypes = {
+  companyCode: PropTypes.string.isRequired,
+  fisrtName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  repeatPassword: PropTypes.string.isRequired
+};
 
 export default Signup;

@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { AcUnitOutlined } from "@material-ui/icons/";
 
 const FormContainer = styled.div`
@@ -112,6 +110,7 @@ class Login extends Component {
                 name="username"
                 value={this.state.username.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -121,6 +120,7 @@ class Login extends Component {
                 name="password"
                 value={this.state.password.value}
                 onChange={this.changeHandler}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -140,6 +140,9 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {};
+Login.propTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
+};
 
 export default Login;
