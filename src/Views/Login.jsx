@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { AcUnitOutlined } from "@material-ui/icons/";
-
+import formurlencoded from "form-urlencoded";
 const FormContainer = styled.div`
   height: 100vh;
   position: relative;
@@ -61,6 +61,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
+      error: null,
       username: {
         value: ""
       },
@@ -72,8 +74,9 @@ class Login extends Component {
 
   //   componentWillMount() {}
 
-  //   componentDidMount() {}
+  // componentDidMount() {
 
+  // }
   //   componentWillReceiveProps(nextProps) {}
 
   //   shouldComponentUpdate(nextProps, nextState) {}
@@ -83,7 +86,24 @@ class Login extends Component {
   //   componentDidUpdate(prevProps, prevState) {}
 
   //   componentWillUnmount() {}
-
+  handleClick = async event => {
+    const method = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: formurlencoded({
+        username: this.state.username.value,
+        password: this.state.password.value
+      })
+    };
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/v1/auth/login`,
+      method
+    );
+    const result = await response.json();
+    console.log(result);
+  };
   changeHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -110,7 +130,7 @@ class Login extends Component {
                 name="username"
                 value={this.state.username.value}
                 onChange={this.changeHandler}
-                required
+                autoComplete="username"
               />
             </FormGroup>
             <FormGroup>
@@ -120,16 +140,20 @@ class Login extends Component {
                 name="password"
                 value={this.state.password.value}
                 onChange={this.changeHandler}
-                required
+                autoComplete="current-password"
               />
             </FormGroup>
             <FormGroup>
-              <FormButton className="btn btn-dark" type="button">
+              <FormButton
+                className="btn btn-dark"
+                type="button"
+                onClick={this.handleClick}
+              >
                 Login
               </FormButton>
             </FormGroup>
             <FormGroup>
-              <FormForgot class="forgot" href="#">
+              <FormForgot className="forgot" href="#">
                 Forgot your email or password?
               </FormForgot>
             </FormGroup>
