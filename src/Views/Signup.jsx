@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import formurlencoded from "form-urlencoded";
 import styled from "styled-components";
 import { AcUnitOutlined } from "@material-ui/icons/";
 
@@ -64,10 +65,7 @@ class Signup extends Component {
       companyCode: {
         value: ""
       },
-      firstName: {
-        value: ""
-      },
-      lastName: {
+      fullname: {
         value: ""
       },
       email: {
@@ -81,7 +79,9 @@ class Signup extends Component {
       },
       repeatPassword: {
         value: ""
-      }
+      },
+      error: null,
+      data: null
     };
   }
 
@@ -98,7 +98,32 @@ class Signup extends Component {
   //   componentDidUpdate(prevProps, prevState) {}
 
   //   componentWillUnmount() {}
-
+  handleClick = async event => {
+    const method = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: formurlencoded({
+        companyCode: this.state.companyCode.value,
+        fullname: this.state.fullname.value,
+        email: this.state.email.value,
+        username: this.state.username.value,
+        repeatPassword: this.state.repeatPassword.value,
+        password: this.state.password.value
+      })
+    };
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/v1/auth/register`,
+      method
+    );
+    const result = await response.json();
+    if (response.status === 200) {
+      this.setState({ data: result });
+    } else {
+      this.setState({ error: result });
+    }
+  };
   changeHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -131,19 +156,9 @@ class Signup extends Component {
             <FormGroup>
               <FormInput
                 type="text"
-                placeholder="First name"
-                name="firstName"
-                value={this.state.firstName.value}
-                onChange={this.changeHandler}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <FormInput
-                type="text"
-                placeholder="Last Name"
-                name="lastName"
-                value={this.state.lastName.value}
+                placeholder="Name"
+                name="fullname"
+                value={this.state.fullname.value}
                 onChange={this.changeHandler}
                 required
               />
@@ -189,7 +204,11 @@ class Signup extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <FormButton className="btn btn-dark" type="button">
+              <FormButton
+                className="btn btn-dark"
+                type="button"
+                onClick={this.handleClick}
+              >
                 Signup
               </FormButton>
             </FormGroup>
@@ -207,8 +226,7 @@ class Signup extends Component {
 
 Signup.propTypes = {
   companyCode: PropTypes.string.isRequired,
-  fisrtName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
+  fullname: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
