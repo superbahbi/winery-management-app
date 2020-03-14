@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import formurlencoded from "form-urlencoded";
 import styled from "styled-components";
 import { AcUnitOutlined } from "@material-ui/icons/";
-
+import { Alert } from "react-bootstrap";
 const FormContainer = styled.div`
   height: 100vh;
   position: relative;
   background: linear-gradient(120deg, #5983e8, #00e4d0);
 `;
 const Form = styled.form`
-  max-width: 320px;
+  max-width: 400px;
   width: 90%;
   padding: 40px;
   border-radius: 4px;
@@ -58,27 +58,31 @@ const FormForgot = styled.a`
   opacity: 0.9;
   text-decoration: none;
 `;
+const ErrorAlert = styled(Alert)`
+  padding: 0.75rem 0.75rem;
+  margin-bottom: 0;
+`;
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       companyCode: {
-        value: ""
+        value: null
       },
       fullname: {
-        value: ""
+        value: null
       },
       email: {
-        value: ""
+        value: null
       },
       username: {
-        value: ""
+        value: null
       },
       password: {
-        value: ""
+        value: null
       },
       repeatPassword: {
-        value: ""
+        value: null
       },
       error: null,
       data: null
@@ -99,6 +103,7 @@ class Signup extends Component {
 
   //   componentWillUnmount() {}
   handleClick = async event => {
+    event.preventDefault();
     const method = {
       method: "POST",
       headers: {
@@ -135,14 +140,20 @@ class Signup extends Component {
       }
     });
   };
+
   render() {
     return (
       <Fragment>
         <FormContainer>
-          <Form>
+          <Form onSubmit={this.handleClick}>
             <FormIcon>
               <AcUnitOutlined style={{ fontSize: 60 }} />
             </FormIcon>
+
+            {this.state.error &&
+              this.state.error.response.map(i => (
+                <ErrorAlert variant="danger">{i.message}</ErrorAlert>
+              ))}
             <FormGroup>
               <FormInput
                 type="text"
@@ -150,7 +161,6 @@ class Signup extends Component {
                 name="companyCode"
                 value={this.state.companyCode.value}
                 onChange={this.changeHandler}
-                required
               />
             </FormGroup>
             <FormGroup>
@@ -160,7 +170,6 @@ class Signup extends Component {
                 name="fullname"
                 value={this.state.fullname.value}
                 onChange={this.changeHandler}
-                required
               />
             </FormGroup>
             <FormGroup>
@@ -170,7 +179,6 @@ class Signup extends Component {
                 name="email"
                 value={this.state.email.value}
                 onChange={this.changeHandler}
-                required
               />
             </FormGroup>
             <FormGroup>
@@ -180,7 +188,6 @@ class Signup extends Component {
                 name="username"
                 value={this.state.username.value}
                 onChange={this.changeHandler}
-                required
               />
             </FormGroup>
             <FormGroup>
@@ -190,7 +197,6 @@ class Signup extends Component {
                 name="password"
                 value={this.state.password.value}
                 onChange={this.changeHandler}
-                required
               />
             </FormGroup>
             <FormGroup>
@@ -200,20 +206,19 @@ class Signup extends Component {
                 name="repeatPassword"
                 value={this.state.repeatPassword.value}
                 onChange={this.changeHandler}
-                required
               />
             </FormGroup>
             <FormGroup>
               <FormButton
                 className="btn btn-dark"
-                type="button"
-                onClick={this.handleClick}
+                type="submit"
+                onClick={this.onSubmit}
               >
                 Signup
               </FormButton>
             </FormGroup>
             <FormGroup>
-              <FormForgot class="forgot" href="/login">
+              <FormForgot className="forgot" href="/login">
                 Already have an account?
               </FormForgot>
             </FormGroup>
