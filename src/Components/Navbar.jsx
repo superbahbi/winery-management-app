@@ -95,7 +95,8 @@ class Navi extends Component {
         <SideNav
           style={{
             padding: "15px 20px 0 20px",
-            position: "fixed"
+            position: "fixed",
+            background: "linear-gradient(120deg, #5983e8, #00e4d0)"
           }}
           onSelect={this.onSelect}
           onToggle={this.onToggle}
@@ -119,11 +120,11 @@ class Navi extends Component {
               </NavIcon>
               <NavText>Dashboard</NavText>
             </NavItem>
-            <NavItem eventKey="lots">
+            <NavItem eventKey="batch">
               <NavIcon>
                 <BallotOutlined />
               </NavIcon>
-              <NavText>Lots</NavText>
+              <NavText>Batch</NavText>
             </NavItem>
             <NavItem eventKey="vessel">
               <NavIcon>

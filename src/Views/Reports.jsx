@@ -2,10 +2,38 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
+import styled from "styled-components";
+const DashboardContainer = styled.main`
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s;
+  padding: 0 20px;
+  margin-left: ${props => (props.expanded ? 240 : 85)}px;
+`;
+const Content = styled.div`
+  height: 100vh
+  background-color: #f8f9fc;
+`;
+
 class Reports extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: "Reports" };
+    this.state = {
+      title: "Reports",
+      products: [],
+      columns: [
+        {
+          dataField: "id",
+          text: "Id",
+          hidden: true
+        },
+        {
+          dataField: "code",
+          text: "Code",
+          sort: true
+        }
+      ]
+    };
   }
 
   // componentWillMount() {}
@@ -25,8 +53,16 @@ class Reports extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar />
-        <Table title="Reports" />
+        <Content>
+          <Navbar />
+          <DashboardContainer expanded={this.state.expanded}>
+            <Table
+              title={this.state.title}
+              columns={this.state.columns}
+              products={this.state.products}
+            />
+          </DashboardContainer>
+        </Content>
       </Fragment>
     );
   }

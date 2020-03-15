@@ -4,7 +4,7 @@ import Index from "./Views/Index";
 import Login from "./Views/Login";
 import Signup from "./Views/Signup";
 import DashboardView from "./Views/Dashboard";
-import Lots from "./Views/Lots";
+import Batch from "./Views/Batch";
 import Vessel from "./Views/Vessel";
 import WorkOrder from "./Views/WorkOrder";
 import Analysis from "./Views/Analysis";
@@ -26,7 +26,7 @@ function Routes() {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <PrivateRoute path="/dashboard" component={DashboardView} />
-            <PrivateRoute path="/lots" component={Lots} />
+            <PrivateRoute path="/batch" component={Batch} />
             <PrivateRoute path="/vessel" component={Vessel} />
             <PrivateRoute path="/workorder" component={WorkOrder} />
             <PrivateRoute path="/analysis" component={Analysis} />

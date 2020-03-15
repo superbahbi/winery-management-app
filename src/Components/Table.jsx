@@ -3,60 +3,65 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, {
+  Search,
+  CSVExport
+} from "react-bootstrap-table2-toolkit";
+const { SearchBar, ClearSearchButton } = Search;
+const { ExportCSVButton } = CSVExport;
 const TableTitle = styled.h4``;
-const TableStyled = styled(BootstrapTable)`
-  font-size: 20px;
-  color: red;
-  .table thead th {
-    color: red !important;
-  }
-  .tableWrapperClass {
-    font-size: 20px;
-    color: red;
-    th {
-      color: red !important;
-    }
-  }
+const TableHeader = styled.div`
+  margin: 0.5em;
 `;
 class Table extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      products: [],
-      columns: [
-        {
-          dataField: "",
-          text: "No data found!"
-        }
-      ]
-    };
+    this.state = {};
   }
 
-  componentDidMount() {
-    if (this.props.products) {
-      this.setState({ products: this.props.products });
-    }
-  }
-
+  // componentDidMount() {}
   // shouldComponentUpdate(nextProps, nextState) {}
-
   // componentDidUpdate(prevProps, prevState) {}
-
   // componentWillUnmount() {}
 
   render() {
     return (
       <Fragment>
-        <TableTitle>{this.props.title}</TableTitle>
-        <TableStyled
+        <ToolkitProvider
           keyField="id"
-          hover
-          bordered={false}
-          data={this.props.products || this.state.products}
-          columns={this.props.columns || this.state.columns}
-          pagination={paginationFactory({ sizePerPage: 25 })}
-          condensed
-        />
+          data={this.props.products}
+          columns={this.props.columns}
+          search
+        >
+          {props => (
+            <div>
+              <TableHeader>
+                <TableTitle> {this.props.title}</TableTitle>
+                <SearchBar {...props.searchProps} />
+                <ClearSearchButton {...props.searchProps} />
+                <ExportCSVButton {...props.csvProps}>
+                  Export CSV!!
+                </ExportCSVButton>
+              </TableHeader>
+
+              <hr />
+              <BootstrapTable
+                {...props.baseProps}
+                condensed
+                bootstrap4
+                wrapperClasses="table-responsive"
+                hover
+                bordered={false}
+                pagination={paginationFactory({
+                  sizePerPage: 20,
+                  showTotal: true,
+                  hidePageListOnlyOnePage: true,
+                  hideSizePerPage: true
+                })}
+              />
+            </div>
+          )}
+        </ToolkitProvider>
       </Fragment>
     );
   }
