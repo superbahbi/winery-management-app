@@ -2,6 +2,16 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
+import { Card } from "reactstrap";
+import styled from "styled-components";
+const DashboardContainer = styled.main`
+  background-color: #f8f9fc;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s;
+  padding: 0 20px;
+  margin-left: ${props => (props.expanded ? 240 : 100)}px;
+`;
 class Lots extends Component {
   constructor(props) {
     super(props);
@@ -318,11 +328,15 @@ class Lots extends Component {
     return (
       <Fragment>
         <Navbar />
-        <Table
-          title={this.state.title}
-          columns={this.state.columns}
-          products={this.state.products}
-        />
+        <DashboardContainer expanded={this.state.expanded}>
+          <Card>
+            <Table
+              title={this.state.title}
+              columns={this.state.columns}
+              products={this.state.products}
+            />
+          </Card>
+        </DashboardContainer>
       </Fragment>
     );
   }

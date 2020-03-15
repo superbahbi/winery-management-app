@@ -1,9 +1,23 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import BootstrapTable from "react-bootstrap-table-next";
-const TableTitle = styled.h1``;
+import paginationFactory from "react-bootstrap-table2-paginator";
+const TableTitle = styled.h4``;
+const TableStyled = styled(BootstrapTable)`
+  font-size: 20px;
+  color: red;
+  .table thead th {
+    color: red !important;
+  }
+  .tableWrapperClass {
+    font-size: 20px;
+    color: red;
+    th {
+      color: red !important;
+    }
+  }
+`;
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -33,16 +47,16 @@ class Table extends Component {
   render() {
     return (
       <Fragment>
-        <Container style={{ marginTop: 50 }}>
-          <TableTitle>{this.props.title}</TableTitle>
-          <BootstrapTable
-            striped
-            hover
-            keyField="id"
-            data={this.props.products || this.state.products}
-            columns={this.props.columns || this.state.columns}
-          />
-        </Container>
+        <TableTitle>{this.props.title}</TableTitle>
+        <TableStyled
+          keyField="id"
+          hover
+          bordered={false}
+          data={this.props.products || this.state.products}
+          columns={this.props.columns || this.state.columns}
+          pagination={paginationFactory({ sizePerPage: 25 })}
+          condensed
+        />
       </Fragment>
     );
   }
