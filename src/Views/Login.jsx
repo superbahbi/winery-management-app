@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import formurlencoded from "form-urlencoded";
+import { authenticationService } from "../_services";
+import { history } from "../_helpers";
 import styled from "styled-components";
 import { AcUnitOutlined } from "@material-ui/icons/";
 const FormContainer = styled.div`
@@ -49,13 +50,19 @@ const FormButton = styled.button`
   width: 100%;
   margin-bottom: 1rem;
 `;
-const FormForgot = styled.a`
-  display: block;
+const FormFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const FormFooterText = styled.span`
   text-align: center;
   font-size: 12px;
   color: #6f7a85;
   opacity: 0.9;
-  text-decoration: none;
+  cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 class Login extends Component {
   constructor(props) {
@@ -63,6 +70,8 @@ class Login extends Component {
     this.state = {
       isLoading: true,
       error: null,
+      isSubmitting: false,
+      status: false,
       username: {
         value: ""
       },
@@ -70,39 +79,39 @@ class Login extends Component {
         value: ""
       }
     };
+    // redirect to home if already logged in
+    if (authenticationService.currentUserValue) {
+      this.props.history.push("/dashboard");
+    }
   }
 
-  //   componentWillMount() {}
-
-  // componentDidMount() {
-
-  // }
+  componentDidMount() {
+    console.log(authenticationService.currentUserValue);
+  }
   //   componentWillReceiveProps(nextProps) {}
-
   //   shouldComponentUpdate(nextProps, nextState) {}
-
   //   componentWillUpdate(nextProps, nextState) {}
-
   //   componentDidUpdate(prevProps, prevState) {}
-
   //   componentWillUnmount() {}
-  handleClick = async event => {
-    const method = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: formurlencoded({
-        username: this.state.username.value,
-        password: this.state.password.value
-      })
-    };
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/auth/login`,
-      method
-    );
-    const result = await response.json();
-    console.log(result);
+  handleSubmit = async event => {
+    event.preventDefault();
+    this.setState({ status: false });
+    this.setState({ isSubmitting: true });
+    authenticationService
+      .login(this.state.username.value, this.state.password.value)
+      .then(
+        user => {
+          const { from } = {
+            from: { pathname: "/dashboard" }
+          };
+          this.props.history.push(from);
+        },
+        error => {
+          this.setState({ isSubmitting: false });
+          this.setState({ status: error });
+        }
+      );
+    // console.log(result);
   };
   changeHandler = event => {
     const name = event.target.name;
@@ -119,7 +128,7 @@ class Login extends Component {
     return (
       <Fragment>
         <FormContainer>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <FormIcon>
               <AcUnitOutlined style={{ fontSize: 60 }} />
             </FormIcon>
@@ -146,16 +155,32 @@ class Login extends Component {
             <FormGroup>
               <FormButton
                 className="btn btn-dark"
-                type="button"
-                onClick={this.handleClick}
+                type="submit"
+                disabled={this.state.isSubmitting}
               >
-                Login
+                {!this.state.isSubmitting && "Login"}
+                {this.state.isSubmitting && (
+                  <img
+                    src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                    alt="Loading..."
+                  />
+                )}
               </FormButton>
             </FormGroup>
             <FormGroup>
-              <FormForgot className="forgot" href="#">
-                Forgot your email or password?
-              </FormForgot>
+              <FormFooter>
+                <FormFooterText href="#">
+                  Forgot your email or password?
+                </FormFooterText>
+
+                <FormFooterText
+                  onClick={() => {
+                    history.push("/signup");
+                  }}
+                >
+                  Don't have an account? Click here!
+                </FormFooterText>
+              </FormFooter>
             </FormGroup>
           </Form>
         </FormContainer>

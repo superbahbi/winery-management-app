@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import { history } from "../_helpers";
 import formurlencoded from "form-urlencoded";
 import styled from "styled-components";
 import { AcUnitOutlined } from "@material-ui/icons/";
@@ -50,17 +51,24 @@ const FormButton = styled.button`
   width: 100%;
   margin-bottom: 1rem;
 `;
-const FormForgot = styled.a`
-  display: block;
+
+const ErrorAlert = styled(Alert)`
+  padding: 0.75rem 0.75rem;
+  margin-bottom: 0;
+`;
+const FormFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const FormFooterText = styled.span`
   text-align: center;
   font-size: 12px;
   color: #6f7a85;
   opacity: 0.9;
-  text-decoration: none;
-`;
-const ErrorAlert = styled(Alert)`
-  padding: 0.75rem 0.75rem;
-  margin-bottom: 0;
+  cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 class Signup extends Component {
   constructor(props) {
@@ -218,9 +226,15 @@ class Signup extends Component {
               </FormButton>
             </FormGroup>
             <FormGroup>
-              <FormForgot className="forgot" href="/login">
-                Already have an account?
-              </FormForgot>
+              <FormFooter>
+                <FormFooterText
+                  onClick={() => {
+                    history.push("/login");
+                  }}
+                >
+                  Already have an account?
+                </FormFooterText>
+              </FormFooter>
             </FormGroup>
           </Form>
         </FormContainer>

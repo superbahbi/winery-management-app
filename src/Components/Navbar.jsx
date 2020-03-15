@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { authenticationService } from "../_services";
+import { history } from "../_helpers";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import {
@@ -54,12 +55,16 @@ class Navi extends Component {
     };
   }
   onSelect = selected => {
-    this.props.history.push(selected);
     this.setState({ selected: selected });
+    history.push(selected);
   };
   onToggle = expanded => {
     this.setState({ expanded: !this.state.expanded });
   };
+  logout() {
+    authenticationService.logout();
+    history.push("/login");
+  }
   componentDidMount() {
     //   console.log("componentDidMount");
   }
@@ -89,7 +94,8 @@ class Navi extends Component {
       <div>
         <SideNav
           style={{
-            padding: "15px 20px 0 20px"
+            padding: "15px 20px 0 20px",
+            position: "fixed"
           }}
           onSelect={this.onSelect}
           onToggle={this.onToggle}
@@ -173,6 +179,9 @@ class Navi extends Component {
               <NavItem eventKey="security">
                 <NavText>Security</NavText>
               </NavItem>
+              <NavItem onClick={this.logout}>
+                <NavText>Logout</NavText>
+              </NavItem>
             </NavItem>
           </SideNav.Nav>
         </SideNav>
@@ -183,4 +192,4 @@ class Navi extends Component {
 
 Navi.propTypes = { title: PropTypes.string };
 
-export default withRouter(Navi);
+export default Navi;

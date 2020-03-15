@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import { createBrowserHistory } from "history";
 import Index from "./Views/Index";
 import Login from "./Views/Login";
 import Signup from "./Views/Signup";
@@ -15,7 +14,8 @@ import Customers from "./Views/Customers";
 import Reports from "./Views/Reports";
 import Account from "./Views/Account";
 import Security from "./Views/Security";
-const history = createBrowserHistory();
+import { history } from "../src/_helpers";
+import PrivateRoute from "./PrivateRoute";
 function Routes() {
   return (
     <Router history={history}>
@@ -25,17 +25,17 @@ function Routes() {
             <Route path="/" component={Index} exact />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/dashboard" component={DashboardView} />
-            <Route path="/lots" component={Lots} />
-            <Route path="/vessel" component={Vessel} />
-            <Route path="/workorder" component={WorkOrder} />
-            <Route path="/analysis" component={Analysis} />
-            <Route path="/inventory" component={Inventory} />
-            <Route path="/history" component={History} />
-            <Route path="/customers" component={Customers} />
-            <Route path="/reports" component={Reports} />
-            <Route path="/account" component={Account} />
-            <Route path="/security" component={Security} />
+            <PrivateRoute path="/dashboard" component={DashboardView} />
+            <PrivateRoute path="/lots" component={Lots} />
+            <PrivateRoute path="/vessel" component={Vessel} />
+            <PrivateRoute path="/workorder" component={WorkOrder} />
+            <PrivateRoute path="/analysis" component={Analysis} />
+            <PrivateRoute path="/inventory" component={Inventory} />
+            <PrivateRoute path="/history" component={History} />
+            <PrivateRoute path="/customers" component={Customers} />
+            <PrivateRoute path="/reports" component={Reports} />
+            <PrivateRoute path="/account" component={Account} />
+            <PrivateRoute path="/security" component={Security} />
           </Switch>
         </div>
       </Fragment>
