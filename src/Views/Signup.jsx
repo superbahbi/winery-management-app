@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { history } from "../_helpers";
-import formurlencoded from "form-urlencoded";
+import { authenticationService } from "../_services";
 import styled from "styled-components";
 import { AcUnitOutlined } from "@material-ui/icons/";
 import { Alert } from "react-bootstrap";
@@ -74,6 +74,9 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
+      isSubmitting: false,
+      status: [],
       companyCode: {
         value: null
       },
@@ -95,29 +98,24 @@ class Signup extends Component {
       error: null,
       data: null
     };
+    // redirect to home if already logged in
+    if (authenticationService.currentUserValue) {
+      this.props.history.push("/dashboard");
+    }
   }
-
   //   componentWillMount() {}
-
   //   componentDidMount() {}
-
   //   componentWillReceiveProps(nextProps) {}
-
   //   shouldComponentUpdate(nextProps, nextState) {}
-
   //   componentWillUpdate(nextProps, nextState) {}
-
   //   componentDidUpdate(prevProps, prevState) {}
-
   //   componentWillUnmount() {}
   handleClick = async event => {
     event.preventDefault();
-    const method = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: formurlencoded({
+    this.setState({ status: false });
+    this.setState({ isSubmitting: true });
+    authenticationService
+      .register({
         companyCode: this.state.companyCode.value,
         fullname: this.state.fullname.value,
         email: this.state.email.value,
@@ -125,17 +123,18 @@ class Signup extends Component {
         repeatPassword: this.state.repeatPassword.value,
         password: this.state.password.value
       })
-    };
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/v1/auth/register`,
-      method
-    );
-    const result = await response.json();
-    if (response.status === 200) {
-      this.setState({ data: result });
-    } else {
-      this.setState({ error: result });
-    }
+      .then(
+        user => {
+          const { from } = {
+            from: { pathname: "/dashboard" }
+          };
+          this.props.history.push(from);
+        },
+        error => {
+          this.setState({ isSubmitting: false });
+          this.setState({ status: error });
+        }
+      );
   };
   changeHandler = event => {
     const name = event.target.name;
@@ -158,8 +157,8 @@ class Signup extends Component {
               <AcUnitOutlined style={{ fontSize: 60 }} />
             </FormIcon>
 
-            {this.state.error &&
-              this.state.error.response.map(i => (
+            {this.state.status &&
+              this.state.status.map(i => (
                 <ErrorAlert variant="danger">{i.message}</ErrorAlert>
               ))}
             <FormGroup>

@@ -7,6 +7,7 @@ const currentUserSubject = new BehaviorSubject(
 
 export const authenticationService = {
   login,
+  register,
   logout,
   currentUser: currentUserSubject.asObservable(),
   get currentUserValue() {
@@ -22,6 +23,33 @@ function login(username, password) {
   };
 
   return fetch(`${process.env.REACT_APP_API_URL}/v1/auth/login`, requestOptions)
+    .then(handleResponse)
+    .then(user => {
+      console.log(user);
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      currentUserSubject.next(user);
+      return user;
+    });
+}
+function register(formData) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      companyCode: formData.companyCode,
+      fullname: formData.fullname,
+      email: formData.email,
+      username: formData.username,
+      repeatPassword: formData.repeatPassword,
+      password: formData.password
+    })
+  };
+
+  return fetch(
+    `${process.env.REACT_APP_API_URL}/v1/auth/register`,
+    requestOptions
+  )
     .then(handleResponse)
     .then(user => {
       console.log(user);

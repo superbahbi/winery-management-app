@@ -69,7 +69,6 @@ class Login extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      error: null,
       isSubmitting: false,
       status: false,
       username: {
@@ -85,9 +84,7 @@ class Login extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(authenticationService.currentUserValue);
-  }
+  // componentDidMount() {}
   //   componentWillReceiveProps(nextProps) {}
   //   shouldComponentUpdate(nextProps, nextState) {}
   //   componentWillUpdate(nextProps, nextState) {}
@@ -111,7 +108,6 @@ class Login extends Component {
           this.setState({ status: error });
         }
       );
-    // console.log(result);
   };
   changeHandler = event => {
     const name = event.target.name;
@@ -132,6 +128,9 @@ class Login extends Component {
             <FormIcon>
               <AcUnitOutlined style={{ fontSize: 60 }} />
             </FormIcon>
+            {this.state.status && (
+              <div className={"alert alert-danger"}>{this.state.status}</div>
+            )}
             <FormGroup>
               <FormInput
                 type="text"
