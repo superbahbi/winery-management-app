@@ -8,13 +8,13 @@ class Vessel extends Component {
     this.state = { title: "Vessel" };
   }
 
-  componentDidMount() {}
+  // componentDidMount() {}
 
-  shouldComponentUpdate(nextProps, nextState) {}
+  // shouldComponentUpdate(nextProps, nextState) {}
 
-  componentDidUpdate(prevProps, prevState) {}
+  // componentDidUpdate(prevProps, prevState) {}
 
-  componentWillUnmount() {}
+  // componentWillUnmount() {}
 
   render() {
     return (

@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import Index from "./Views/Index";
 import Login from "./Views/Login";
 import Signup from "./Views/Signup";
@@ -14,29 +15,31 @@ import Customers from "./Views/Customers";
 import Reports from "./Views/Reports";
 import Account from "./Views/Account";
 import Security from "./Views/Security";
-
+const history = createBrowserHistory();
 function Routes() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Fragment>
-        <Switch>
-          <Route path="/" component={Index} exact />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/dashboard" component={DashboardView} />
-          <Route path="/lots" component={Lots} />
-          <Route path="/vessel" component={Vessel} />
-          <Route path="/workorder" component={WorkOrder} />
-          <Route path="/analysis" component={Analysis} />
-          <Route path="/inventory" component={Inventory} />
-          <Route path="/history" component={History} />
-          <Route path="/customers" component={Customers} />
-          <Route path="/reports" component={Reports} />
-          <Route path="/account" component={Account} />
-          <Route path="/security" component={Security} />
-        </Switch>
+        <div>
+          <Switch>
+            <Route path="/" component={Index} exact />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/dashboard" component={DashboardView} />
+            <Route path="/lots" component={Lots} />
+            <Route path="/vessel" component={Vessel} />
+            <Route path="/workorder" component={WorkOrder} />
+            <Route path="/analysis" component={Analysis} />
+            <Route path="/inventory" component={Inventory} />
+            <Route path="/history" component={History} />
+            <Route path="/customers" component={Customers} />
+            <Route path="/reports" component={Reports} />
+            <Route path="/account" component={Account} />
+            <Route path="/security" component={Security} />
+          </Switch>
+        </div>
       </Fragment>
-    </BrowserRouter>
+    </Router>
   );
 }
 export default Routes;

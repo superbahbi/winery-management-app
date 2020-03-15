@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import {
@@ -54,29 +54,37 @@ class Navi extends Component {
     };
   }
   onSelect = selected => {
+    this.props.history.push(selected);
     this.setState({ selected: selected });
-    this.redirect();
   };
   onToggle = expanded => {
-    this.setState({ expanded: expanded });
+    this.setState({ expanded: !this.state.expanded });
   };
-  // componentDidMount() {}
+  componentDidMount() {
+    //   console.log("componentDidMount");
+  }
 
-  // shouldComponentUpdate(nextProps, nextState) {}
+  shouldComponentUpdate(nextProps, nextState) {
+    const expandedChange = this.state.expanded !== nextState.expanded;
+    const selectedChange = this.state.selected !== nextState.selected;
+    return selectedChange || expandedChange;
+  }
 
-  // componentDidUpdate(prevProps, prevState) {}
+  // componentDidUpdate(selected, prevProps, prevState) {
+  // console.log(prevState);
+  // const { selected } = this.state;
+  // if (this.state.redirect === true) {
+  //   this.setState({ redirect: false });
+  //   this.props.history.push(selected);
+  // }
+  // }
 
   // componentWillUnmount() {}
-  redirect = () => {
-    this.setState({ redirect: true });
-  };
 
   render() {
+    console.log(this.state);
     const { selected } = this.state;
-    if (this.state.redirect === true) {
-      this.setState({ redirect: false });
-      return <Redirect to={selected} />;
-    }
+
     return (
       <div>
         <SideNav
@@ -175,4 +183,4 @@ class Navi extends Component {
 
 Navi.propTypes = { title: PropTypes.string };
 
-export default Navi;
+export default withRouter(Navi);

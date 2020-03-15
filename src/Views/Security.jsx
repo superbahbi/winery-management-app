@@ -7,19 +7,19 @@ class Security extends Component {
     this.state = { title: "Security" };
   }
 
-  componentWillMount() {}
+  // componentWillMount() {}
 
-  componentDidMount() {}
+  // componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {}
+  // componentWillReceiveProps(nextProps) {}
 
-  shouldComponentUpdate(nextProps, nextState) {}
+  // shouldComponentUpdate(nextProps, nextState) {}
 
-  componentWillUpdate(nextProps, nextState) {}
+  // componentWillUpdate(nextProps, nextState) {}
 
-  componentDidUpdate(prevProps, prevState) {}
+  // componentDidUpdate(prevProps, prevState) {}
 
-  componentWillUnmount() {}
+  // componentWillUnmount() {}
 
   render() {
     return (
@@ -30,6 +30,6 @@ class Security extends Component {
   }
 }
 
-Security.propTypes = {title: PropTypes.string};
+Security.propTypes = { title: PropTypes.string };
 
 export default Security;

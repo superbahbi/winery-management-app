@@ -8,19 +8,19 @@ class Reports extends Component {
     this.state = { title: "Reports" };
   }
 
-  componentWillMount() {}
+  // componentWillMount() {}
 
-  componentDidMount() {}
+  // componentDidMount() {}
 
-  componentWillReceiveProps(nextProps) {}
+  // componentWillReceiveProps(nextProps) {}
 
-  shouldComponentUpdate(nextProps, nextState) {}
+  // shouldComponentUpdate(nextProps, nextState) {}
 
-  componentWillUpdate(nextProps, nextState) {}
+  // componentWillUpdate(nextProps, nextState) {}
 
-  componentDidUpdate(prevProps, prevState) {}
+  // componentDidUpdate(prevProps, prevState) {}
 
-  componentWillUnmount() {}
+  // componentWillUnmount() {}
 
   render() {
     return (
@@ -32,6 +32,6 @@ class Reports extends Component {
   }
 }
 
-Reports.propTypes = {title: PropTypes.string};
+Reports.propTypes = { title: PropTypes.string };
 
 export default Reports;

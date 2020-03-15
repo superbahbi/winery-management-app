@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import Navbar from ".././Components/Navbar";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "reactstrap";
 import styled from "styled-components";
 const DashboardContainer = styled.main`
   background-color: #f8f9fc;
@@ -31,27 +31,28 @@ class Dashboard extends Component {
         <Navbar />
         <DashboardContainer expanded={this.state.expanded}>
           <h4>{this.state.title}</h4>
-          <Row className="justify-content-md-center">
-            <Col xs lg="2">
-              1 of 3
-            </Col>
-            <Col md="auto">Variable width content</Col>
-            <Col xs lg="2">
-              3 of 3
-            </Col>
-          </Row>
-          <Row>
-            <Col>1 of 3</Col>
-            <Col md="auto">Variable width content</Col>
-            <Col xs lg="2">
-              3 of 3
-            </Col>
-          </Row>
-          <Row>
-            <Col>1 of 3</Col>
-            <Col>2 of 3</Col>
-            <Col>3 of 3</Col>
-          </Row>
+          <Container fluid>
+            <Row>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="8">
+                <Card>a</Card>
+              </Col>
+
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} sm="4">
+                <Card>a</Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="4">
+                <Card>a</Card>
+              </Col>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="4">
+                <Card>a</Card>
+              </Col>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} sm="4">
+                <Card>a</Card>
+              </Col>
+            </Row>
+          </Container>
         </DashboardContainer>
       </Fragment>
     );
