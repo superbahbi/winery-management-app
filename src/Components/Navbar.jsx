@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { authenticationService } from "../_services";
 import { history } from "../_helpers";
@@ -28,11 +28,6 @@ const NavHeader = styled.div`
     color: inherit;
     background-color: inherit;
   }
-`;
-const NavTitle = styled.div`
-  font-size: 2em;
-  line-height: 20px;
-  padding: 10px 0;
 `;
 const NavSubTitle = styled.div`
   font-size: 1em;

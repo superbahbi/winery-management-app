@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Container, Row, Col, Card } from "reactstrap";
+import { Container, Row, Col, Card, CardBody, CardTitle } from "reactstrap";
 import styled from "styled-components";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
+import { Bar } from "react-chartjs-2";
 const DashboardContainer = styled.main`
   background-color: #f8f9fc;
   position: relative;
@@ -13,10 +14,11 @@ const DashboardContainer = styled.main`
   margin-left: ${props => (props.expanded ? 240 : 100)}px;
   height: 100%;
 `;
-
+const getRandomDatum = () => Math.floor(Math.random() * 1000);
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+
     const types = [
       "Processing",
       "Fermentation",
@@ -24,6 +26,7 @@ class Dashboard extends Component {
       "Press",
       "Aging"
     ];
+
     this.state = {
       title: "Dashboard",
       products: [
@@ -308,7 +311,19 @@ class Dashboard extends Component {
           sort: true,
           formatter: (cell, row) => `${cell} tons`
         }
-      ]
+      ],
+      data: {
+        "Sauvingon Blanc": getRandomDatum(),
+        Chardonnay: getRandomDatum(),
+        "Pinot Noir": getRandomDatum(),
+        Caladoc: getRandomDatum(),
+        Caladoc: getRandomDatum(),
+        Syrah: getRandomDatum(),
+        "Cabernet Franc": getRandomDatum(),
+        "Cabernet Sauvingon": getRandomDatum(),
+        Merlot: getRandomDatum(),
+        Malbec: getRandomDatum()
+      }
     };
   }
   // componentDidMount() {}
@@ -320,6 +335,52 @@ class Dashboard extends Component {
   // componentWillUnmount() {}
 
   render() {
+    const lineData = {
+      labels: [
+        "Sauvingon Blanc",
+        "Pinot Noir",
+        "Chardonnay",
+        "Caladoc",
+        "Syrah",
+        "Cabernet Sauvingon",
+        "Cabernet Franc",
+        "Merlot",
+        "Malbec"
+      ],
+      datasets: [
+        {
+          label: "My First dataset",
+          fill: true,
+          lineTension: 0.1,
+          backgroundColor: "rgba(75,192,192,0.4)",
+          borderColor: "rgba(75,192,192,1)",
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: "rgba(75,192,192,1)",
+          pointBackgroundColor: "#fff",
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(75,192,192,1)",
+          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: [
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum(),
+            getRandomDatum()
+          ]
+        }
+      ]
+    };
     return (
       <Fragment>
         <Navbar />
@@ -327,18 +388,24 @@ class Dashboard extends Component {
           <h4>{this.state.title}</h4>
           <Container fluid>
             <Row>
-              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="4">
-                <Card> My searches</Card>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="3">
+                <Card style={{ height: "70vh" }}> My searches</Card>
               </Col>
-              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="4">
-                <Card>Variety volume on hand (all)</Card>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="3">
+                <Card style={{ height: "70vh" }}>
+                  <CardTitle>Variety volume on hand (all)</CardTitle>
+                  <Bar data={lineData} width={100} height={50} />
+                  <CardTitle>Variety volume on hand (2019)</CardTitle>
+                  <Bar data={lineData} width={100} height={50} />
+                </Card>
               </Col>
-              <Col style={{ paddingLeft: 0, paddingRight: 0 }} sm="4">
-                <Card>
+              <Col style={{ paddingLeft: 0, paddingRight: 0 }} sm="6">
+                <Card style={{ height: "70vh" }}>
                   <Table
                     title="Vessels (all)"
                     columns={this.state.columns}
                     products={this.state.products}
+                    sizePerPage="10"
                   />
                 </Card>
               </Col>
