@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { authenticationService } from "../_services";
 import { history } from "../_helpers";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import {
+  AcUnitOutlined,
   Dashboard,
   PeopleOutlineOutlined,
   FileCopyOutlined,
@@ -21,7 +22,7 @@ import styled from "styled-components";
 const NavHeader = styled.div`
   display: ${props => (props.expanded ? "block" : "none")};
   white-space: nowrap;
-  background-color: #db3d44;
+  padding: 20px 20px;
   color: #fff;
   > * {
     color: inherit;
@@ -65,25 +66,13 @@ class Navi extends Component {
     authenticationService.logout();
     history.push("/login");
   }
-  componentDidMount() {
-    //   console.log("componentDidMount");
-  }
+  // componentDidMount() {}
 
   shouldComponentUpdate(nextProps, nextState) {
     const expandedChange = this.state.expanded !== nextState.expanded;
     const selectedChange = this.state.selected !== nextState.selected;
     return selectedChange || expandedChange;
   }
-
-  // componentDidUpdate(selected, prevProps, prevState) {
-  // console.log(prevState);
-  // const { selected } = this.state;
-  // if (this.state.redirect === true) {
-  //   this.setState({ redirect: false });
-  //   this.props.history.push(selected);
-  // }
-  // }
-
   // componentWillUnmount() {}
 
   render() {
@@ -103,10 +92,10 @@ class Navi extends Component {
         >
           <SideNav.Toggle />
           <NavHeader expanded={this.state.expanded}>
-            <NavTitle>
-              <Dashboard />
-            </NavTitle>
-            <NavSubTitle>Winery Management</NavSubTitle>
+            <NavSubTitle>
+              <AcUnitOutlined style={{ fontSize: 20 }} />
+              WMA
+            </NavSubTitle>
           </NavHeader>
           {this.state.expanded && (
             <NavInfoPane>
