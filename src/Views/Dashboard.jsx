@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { Container, Row, Col, Card, CardBody, CardTitle } from "reactstrap";
+import { Container, Row, Col, Card } from "reactstrap";
 import styled from "styled-components";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
@@ -13,6 +13,9 @@ const DashboardContainer = styled.main`
   padding: 0 20px;
   margin-left: ${props => (props.expanded ? 240 : 100)}px;
   height: 100%;
+`;
+const TitleHeader = styled.h4`
+  margin: 0.5em;
 `;
 const getRandomDatum = () => Math.floor(Math.random() * 1000);
 class Dashboard extends Component {
@@ -317,7 +320,6 @@ class Dashboard extends Component {
         Chardonnay: getRandomDatum(),
         "Pinot Noir": getRandomDatum(),
         Caladoc: getRandomDatum(),
-        Caladoc: getRandomDatum(),
         Syrah: getRandomDatum(),
         "Cabernet Franc": getRandomDatum(),
         "Cabernet Sauvingon": getRandomDatum(),
@@ -349,11 +351,32 @@ class Dashboard extends Component {
       ],
       datasets: [
         {
-          label: "My First dataset",
+          label: "2019",
           fill: true,
           lineTension: 0.1,
-          backgroundColor: "rgba(75,192,192,0.4)",
-          borderColor: "rgba(75,192,192,1)",
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)"
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)"
+          ],
+          barPercentage: 0.5,
+          barThickness: 6,
+          maxBarThickness: 8,
+          minBarLength: 2,
           borderCapStyle: "butt",
           borderDash: [],
           borderDashOffset: 0.0,
@@ -393,10 +416,10 @@ class Dashboard extends Component {
               </Col>
               <Col style={{ paddingLeft: 0, paddingRight: 0 }} xs="6" sm="3">
                 <Card style={{ height: "70vh" }}>
-                  <CardTitle>Variety volume on hand (all)</CardTitle>
-                  <Bar data={lineData} width={100} height={50} />
-                  <CardTitle>Variety volume on hand (2019)</CardTitle>
-                  <Bar data={lineData} width={100} height={50} />
+                  <TitleHeader>Variety volume on hand (all)</TitleHeader>
+                  <Bar data={lineData} />
+                  <TitleHeader>Variety volume on hand (2019)</TitleHeader>
+                  <Bar data={lineData} />
                 </Card>
               </Col>
               <Col style={{ paddingLeft: 0, paddingRight: 0 }} sm="6">
