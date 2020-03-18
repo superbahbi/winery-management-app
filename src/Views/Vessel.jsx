@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import { fetchService } from "../_services";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
+import FloatButton from ".././Components/FloatButton";
+import Dialog from ".././Components/Dialog";
 import styled from "styled-components";
 const DashboardContainer = styled.main`
   position: relative;
@@ -20,7 +23,9 @@ class Vessel extends Component {
     super(props);
     this.state = {
       title: "Vessel",
-      products: [],
+      toggleModal: false,
+      addedNewBatch: false,
+      rows: [],
       columns: [
         {
           dataField: "id",
@@ -33,8 +38,8 @@ class Vessel extends Component {
           sort: true
         },
         {
-          dataField: "productCode",
-          text: "Product Code",
+          dataField: "batchCode",
+          text: "Batch Code",
           sort: true
         },
         {
@@ -43,13 +48,18 @@ class Vessel extends Component {
           sort: true
         },
         {
-          dataField: "capacity",
-          text: "Capicity",
+          dataField: "currentVolume",
+          text: "Content",
           sort: true
         },
         {
-          dataField: "content",
-          text: "Content",
+          dataField: "maxVolume",
+          text: "Capacity",
+          sort: true
+        },
+        {
+          dataField: "status",
+          text: "Status",
           sort: true
         },
         {
@@ -65,28 +75,76 @@ class Vessel extends Component {
       ]
     };
   }
+  componentDidMount() {
+    fetchService
+      .getAllData("vessel")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.setState({ rows: data });
+      });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.addedNewBatch) {
+      fetchService
+        .getAllData("vessel")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.setState({ rows: data, addedNewBatch: false });
+        });
+    }
+  }
+  changeHandler = event => {
+    const name = event.target.name;
+    const value = event.target.value;
 
-  // componentDidMount() {}
-
-  // shouldComponentUpdate(nextProps, nextState) {}
-
-  // componentDidUpdate(prevProps, prevState) {}
-
-  // componentWillUnmount() {}
-
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
+  };
+  handleSubmit = async event => {
+    event.preventDefault();
+    fetchService
+      .addData("vessel", this.state)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {});
+    this.toggle(true);
+  };
+  toggle = addNewBatch => {
+    if (addNewBatch === true) {
+      this.setState({
+        toggleModal: !this.state.toggleModal,
+        addedNewBatch: true
+      });
+    } else {
+      this.setState({ toggleModal: !this.state.toggleModal });
+    }
+  };
   render() {
     return (
       <Fragment>
         <Content>
           <Navbar />
           <DashboardContainer expanded={this.state.expanded}>
-            <Table
-              title={this.state.title}
-              columns={this.state.columns}
-              products={this.state.products}
-            />
+            {this.state.title}
+            <Table columns={this.state.columns} products={this.state.rows} />
           </DashboardContainer>
         </Content>
+        <FloatButton handleClick={this.toggle}></FloatButton>
+        <Dialog
+          toggle={this.toggle}
+          handleSubmit={this.handleSubmit}
+          changeHandler={this.changeHandler}
+          isOpen={this.state.toggleModal}
+          title={this.state.title}
+          dataField={this.state.columns}
+        ></Dialog>
       </Fragment>
     );
   }

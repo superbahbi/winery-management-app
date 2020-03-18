@@ -89,7 +89,7 @@ class Batch extends Component {
   }
   componentDidMount() {
     fetchService
-      .getAllBatch()
+      .getAllData("batch")
       .then(response => {
         return response.json();
       })
@@ -100,7 +100,7 @@ class Batch extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.addedNewBatch) {
       fetchService
-        .getAllBatch()
+        .getAllData("batch")
         .then(response => {
           return response.json();
         })
