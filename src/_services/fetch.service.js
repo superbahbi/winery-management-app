@@ -1,22 +1,22 @@
 export const fetchService = {
-  getAllBatch,
-  addBatch
+  getAllData,
+  addData
 };
 
-function getAllBatch() {
+function getAllData(db) {
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json" }
   };
 
   return fetch(
-    `${process.env.REACT_APP_API_URL}/v1/batch/`,
+    `${process.env.REACT_APP_API_URL}/v1/${db}`,
     requestOptions
-  ).then(batch => {
-    return batch;
+  ).then(response => {
+    return response;
   });
 }
-function addBatch(body) {
+function addData(db, body) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -24,7 +24,7 @@ function addBatch(body) {
   };
 
   return fetch(
-    `${process.env.REACT_APP_API_URL}/v1/batch/add`,
+    `${process.env.REACT_APP_API_URL}/v1/${db}/add`,
     requestOptions
   ).then(batch => {
     return batch;
