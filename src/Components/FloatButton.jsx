@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import { Add } from "@material-ui/icons/";
-const Float = styled.a`
+const Float = styled.span`
   position: fixed;
   width: 60px;
   height: 60px;
@@ -13,15 +13,18 @@ const Float = styled.a`
   text-align: center;
   box-shadow: 2px 2px 3px #999;
   :hover {
-    color: #fff;
+    color: #449ae2;
   }
+`;
+const Icon = styled(Add)`
+  margin-top: 22px;
 `;
 class FloatButton extends Component {
   render() {
     return (
       <Fragment>
         <Float>
-          <Add style={{ marginTop: 22 }} onClick={this.props.handleClick}></Add>
+          <Icon onClick={this.props.handleClick}></Icon>
         </Float>
       </Fragment>
     );
