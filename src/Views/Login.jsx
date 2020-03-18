@@ -94,30 +94,25 @@ class Login extends Component {
     event.preventDefault();
     this.setState({ status: false });
     this.setState({ isSubmitting: true });
-    authenticationService
-      .login(this.state.username.value, this.state.password.value)
-      .then(
-        user => {
-          const { from } = {
-            from: { pathname: "/dashboard" }
-          };
-          this.props.history.push(from);
-        },
-        error => {
-          this.setState({ isSubmitting: false });
-          this.setState({ status: error });
-        }
-      );
+    authenticationService.login(this.state.username, this.state.password).then(
+      user => {
+        const { from } = {
+          from: { pathname: "/dashboard" }
+        };
+        this.props.history.push(from);
+      },
+      error => {
+        this.setState({ isSubmitting: false });
+        this.setState({ status: error });
+      }
+    );
   };
   changeHandler = event => {
     const name = event.target.name;
     const value = event.target.value;
     this.setState({
       ...this.state,
-      [name]: {
-        ...this.state[name],
-        value
-      }
+      [name]: value
     });
   };
   render() {
