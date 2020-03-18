@@ -53,7 +53,7 @@ class Table extends Component {
                 hover
                 bordered={false}
                 pagination={paginationFactory({
-                  sizePerPage: this.props.sizePerPage || 20,
+                  sizePerPage: Number(this.props.sizePerPage) || 20,
                   showTotal: true,
                   hidePageListOnlyOnePage: true,
                   hideSizePerPage: true

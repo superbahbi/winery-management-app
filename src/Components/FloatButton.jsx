@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Add } from "@material-ui/icons/";
 const Float = styled.a`
@@ -18,19 +17,6 @@ const Float = styled.a`
   }
 `;
 class FloatButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { add: true };
-  }
-
-  //   componentWillMount() {}
-  //   componentDidMount() {}
-  //   componentWillReceiveProps(nextProps) {}
-  //   shouldComponentUpdate(nextProps, nextState) {}
-  //   componentWillUpdate(nextProps, nextState) {}
-  //   componentDidUpdate(prevProps, prevState) {}
-  //   componentWillUnmount() {}
-
   render() {
     return (
       <Fragment>
@@ -41,7 +27,4 @@ class FloatButton extends Component {
     );
   }
 }
-
-FloatButton.propTypes = { add: PropTypes.string };
-
 export default FloatButton;

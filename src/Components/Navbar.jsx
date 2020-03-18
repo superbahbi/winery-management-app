@@ -71,7 +71,6 @@ class Navi extends Component {
   // componentWillUnmount() {}
 
   render() {
-    console.log(this.state);
     const { selected } = this.state;
 
     return (

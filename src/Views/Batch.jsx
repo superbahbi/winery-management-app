@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { fetchService } from "../_services";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
-import styled from "styled-components";
 import FloatButton from ".././Components/FloatButton";
+import Dialog from ".././Components/Dialog";
+import styled from "styled-components";
+
 const DashboardContainer = styled.main`
   position: relative;
   overflow: hidden;
@@ -29,6 +31,8 @@ class Batch extends Component {
     ];
     this.state = {
       title: "Batch",
+      toggleModal: false,
+      addedNewBatch: false,
       rows: [],
       columns: [
         {
@@ -37,7 +41,7 @@ class Batch extends Component {
           hidden: true
         },
         {
-          dataField: "code",
+          dataField: "batchCode",
           text: "Batch Code",
           sort: true
         },
@@ -83,26 +87,57 @@ class Batch extends Component {
       ]
     };
   }
-  handleClick() {
-    console.log("click");
-  }
-  componentWillMount() {
+  componentDidMount() {
     fetchService
       .getAllBatch()
       .then(response => {
         return response.json();
       })
       .then(data => {
-        console.log(data);
         this.setState({ rows: data });
       });
   }
-  // componentDidMount() {}
-  // componentWillReceiveProps(nextProps) {}
-  // shouldComponentUpdate(nextProps, nextState) {}
-  // componentWillUpdate(nextProps, nextState) {}
-  // componentDidUpdate(prevProps, prevState) {}
-  // componentWillUnmount() {}
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.addedNewBatch) {
+      fetchService
+        .getAllBatch()
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.setState({ rows: data, addedNewBatch: false });
+        });
+    }
+  }
+  changeHandler = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
+  };
+  handleSubmit = async event => {
+    event.preventDefault();
+    fetchService
+      .addBatch(this.state)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {});
+    this.toggle(true);
+  };
+  toggle = addNewBatch => {
+    if (addNewBatch === true) {
+      this.setState({
+        toggleModal: !this.state.toggleModal,
+        addedNewBatch: true
+      });
+    } else {
+      this.setState({ toggleModal: !this.state.toggleModal });
+    }
+  };
   render() {
     return (
       <Fragment>
@@ -113,7 +148,15 @@ class Batch extends Component {
             <Table columns={this.state.columns} products={this.state.rows} />
           </DashboardContainer>
         </Content>
-        <FloatButton handleClick={this.handleClick}></FloatButton>
+        <FloatButton handleClick={this.toggle}></FloatButton>
+        <Dialog
+          toggle={this.toggle}
+          handleSubmit={this.handleSubmit}
+          changeHandler={this.changeHandler}
+          isOpen={this.state.toggleModal}
+          title={this.state.title}
+          dataField={this.state.columns}
+        ></Dialog>
       </Fragment>
     );
   }
