@@ -116,12 +116,12 @@ class Signup extends Component {
     this.setState({ isSubmitting: true });
     authenticationService
       .register({
-        companyCode: this.state.companyCode.value,
-        fullname: this.state.fullname.value,
-        email: this.state.email.value,
-        username: this.state.username.value,
-        repeatPassword: this.state.repeatPassword.value,
-        password: this.state.password.value
+        companyCode: this.state.companyCode,
+        fullname: this.state.fullname,
+        email: this.state.email,
+        username: this.state.username,
+        repeatPassword: this.state.repeatPassword,
+        password: this.state.password
       })
       .then(
         user => {
@@ -141,10 +141,7 @@ class Signup extends Component {
     const value = event.target.value;
     this.setState({
       ...this.state,
-      [name]: {
-        ...this.state[name],
-        value
-      }
+      [name]: value
     });
   };
 
