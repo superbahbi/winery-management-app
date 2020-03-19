@@ -1,3 +1,4 @@
+import { authenticationService } from "../_services";
 export const fetchService = {
   getAllData,
   addData
@@ -6,7 +7,10 @@ export const fetchService = {
 function getAllData(db) {
   const requestOptions = {
     method: "GET",
-    headers: { "Content-Type": "application/json" }
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + authenticationService.currentUser.token
+    }
   };
 
   return fetch(
@@ -19,7 +23,10 @@ function getAllData(db) {
 function addData(db, body) {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + authenticationService.currentUser.token
+    },
     body: JSON.stringify(body)
   };
 
