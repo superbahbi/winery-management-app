@@ -83,13 +83,6 @@ class Login extends Component {
       this.props.history.push("/dashboard");
     }
   }
-
-  // componentDidMount() {}
-  //   componentWillReceiveProps(nextProps) {}
-  //   shouldComponentUpdate(nextProps, nextState) {}
-  //   componentWillUpdate(nextProps, nextState) {}
-  //   componentDidUpdate(prevProps, prevState) {}
-  //   componentWillUnmount() {}
   handleSubmit = async event => {
     event.preventDefault();
     this.setState({ status: false });
