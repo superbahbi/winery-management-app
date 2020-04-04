@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import { fetchService } from "../_services";
 import Navbar from ".././Components/Navbar";
 import Table from ".././Components/Table";
+import FloatButton from ".././Components/FloatButton";
+import Dialog from ".././Components/Dialog";
 import styled from "styled-components";
 const DashboardContainer = styled.main`
   position: relative;
@@ -20,7 +23,9 @@ class WorkOrder extends Component {
     super(props);
     this.state = {
       title: "Work Order",
-      products: [],
+      toggleModal: false,
+      addedNewData: false,
+      rows: [],
       columns: [
         {
           dataField: "id",
@@ -28,8 +33,8 @@ class WorkOrder extends Component {
           hidden: true
         },
         {
-          dataField: "workorder Code",
-          text: "Work Order Code",
+          dataField: "won",
+          text: "Work Order #",
           sort: true
         },
         {
@@ -38,12 +43,12 @@ class WorkOrder extends Component {
           sort: true
         },
         {
-          dataField: "issueBy",
+          dataField: "issueby",
           text: "Issue by",
           sort: true
         },
         {
-          dataField: "assignTo",
+          dataField: "assignto",
           text: "Assign to",
           sort: true
         },
@@ -60,14 +65,57 @@ class WorkOrder extends Component {
       ]
     };
   }
+  componentDidMount() {
+    fetchService
+      .getAllData("workOrder")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        this.setState({ rows: data });
+      });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.addedNewData) {
+      fetchService
+        .getAllData("workOrder")
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.setState({ rows: data, addedNewData: false });
+        });
+    }
+  }
+  changeHandler = event => {
+    const name = event.target.name;
+    const value = event.target.value;
 
-  // componentWillMount() {}
-  // componentDidMount() {}
-  // componentWillReceiveProps(nextProps) {}
-  // shouldComponentUpdate(nextProps, nextState) {}
-  // componentWillUpdate(nextProps, nextState) {}
-  // componentDidUpdate(prevProps, prevState) {}
-  // componentWillUnmount() {}
+    this.setState({
+      ...this.state,
+      [name]: value
+    });
+  };
+  handleSubmit = async event => {
+    event.preventDefault();
+    fetchService
+      .addData("workOrder", this.state)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {});
+    this.toggle(true);
+  };
+  toggle = addNewData => {
+    if (addNewData === true) {
+      this.setState({
+        toggleModal: !this.state.toggleModal,
+        addedNewData: true
+      });
+    } else {
+      this.setState({ toggleModal: !this.state.toggleModal });
+    }
+  };
 
   render() {
     return (
@@ -75,13 +123,19 @@ class WorkOrder extends Component {
         <Content>
           <Navbar />
           <DashboardContainer expanded={this.state.expanded}>
-            <Table
-              title={this.state.title}
-              columns={this.state.columns}
-              products={this.state.products}
-            />
+            {this.state.title}
+            <Table columns={this.state.columns} products={this.state.rows} />
           </DashboardContainer>
         </Content>
+        <FloatButton handleClick={this.toggle}></FloatButton>
+        <Dialog
+          toggle={this.toggle}
+          handleSubmit={this.handleSubmit}
+          changeHandler={this.changeHandler}
+          isOpen={this.state.toggleModal}
+          title={this.state.title}
+          dataField={this.state.columns}
+        ></Dialog>
       </Fragment>
     );
   }
