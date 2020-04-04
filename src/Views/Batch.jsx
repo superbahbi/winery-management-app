@@ -12,6 +12,7 @@ class Batch extends Component {
       "Aging"
     ];
     this.state = {
+      page: "Batch",
       columns: [
         {
           dataField: "id",
@@ -68,7 +69,7 @@ class Batch extends Component {
   render() {
     return (
       <Fragment>
-        <CustomPage page="Batch" columns={this.state.columns} />
+        <CustomPage page={this.state.page} columns={this.state.columns} />
       </Fragment>
     );
   }
