@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -18,12 +17,6 @@ class Table extends Component {
     super(props);
     this.state = {};
   }
-
-  // componentDidMount() {}
-  // shouldComponentUpdate(nextProps, nextState) {}
-  // componentDidUpdate(prevProps, prevState) {}
-  // componentWillUnmount() {}
-
   render() {
     return (
       <Fragment>
@@ -43,7 +36,6 @@ class Table extends Component {
                   Export CSV!!
                 </ExportCSVButton>
               </TableHeader>
-
               <hr />
               <BootstrapTable
                 {...props.baseProps}
@@ -52,6 +44,7 @@ class Table extends Component {
                 wrapperClasses="table-responsive"
                 hover
                 bordered={false}
+                rowEvents={this.props.handleClick}
                 pagination={paginationFactory({
                   sizePerPage: Number(this.props.sizePerPage) || 20,
                   showTotal: true,
@@ -66,7 +59,4 @@ class Table extends Component {
     );
   }
 }
-
-Table.propTypes = { product: PropTypes.array, columns: PropTypes.array };
-
 export default Table;

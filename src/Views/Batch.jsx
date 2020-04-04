@@ -31,8 +31,11 @@ class Batch extends Component {
     ];
     this.state = {
       title: "Batch",
-      toggleModal: false,
-      addedNewBatch: false,
+      toggleAddModal: false,
+      toggleEditModal: false,
+      reload: false,
+      rowData: [],
+      value: [],
       rows: [],
       columns: [
         {
@@ -89,7 +92,7 @@ class Batch extends Component {
   }
   componentDidMount() {
     fetchService
-      .getAllData("batch")
+      .getAllData(this.state.title)
       .then(response => {
         return response.json();
       })
@@ -98,44 +101,72 @@ class Batch extends Component {
       });
   }
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.addedNewBatch) {
+    if (this.state.reload) {
       fetchService
-        .getAllData("batch")
+        .getAllData(this.state.title)
         .then(response => {
           return response.json();
         })
         .then(data => {
-          this.setState({ rows: data, addedNewBatch: false });
+          this.setState({ rows: data, reload: false });
         });
     }
   }
   changeHandler = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    this.setState({
-      ...this.state,
-      [name]: value
-    });
+    event.persist();
+    this.setState(prevState => ({
+      rowData: {
+        ...prevState.rowData,
+        [event.target.name]: event.target.value
+      }
+    }));
   };
-  handleSubmit = async event => {
+  handleAdd = async event => {
     event.preventDefault();
     fetchService
-      .addBatch(this.state)
+      .addData(this.state.title, this.state.rowData)
       .then(response => {
         return response.json();
       })
       .then(data => {});
-    this.toggle(true);
+    this.setState({ rowData: [] });
+    this.toggle();
   };
-  toggle = addNewBatch => {
-    if (addNewBatch === true) {
-      this.setState({
-        toggleModal: !this.state.toggleModal,
-        addedNewBatch: true
-      });
-    } else {
-      this.setState({ toggleModal: !this.state.toggleModal });
+  handleEdit = async event => {
+    event.preventDefault();
+    fetchService
+      .editData(this.state.title, this.state.rowData)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {});
+    this.setState({ rowData: [], reload: true });
+    this.editToggle();
+  };
+  handleDelete = async event => {
+    event.preventDefault();
+    fetchService
+      .deleteData(this.state.title, this.state.rowData)
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {});
+    this.setState({ rowData: [], reload: true });
+    this.editToggle();
+  };
+  toggle = () => {
+    this.setState({
+      toggleAddModal: !this.state.toggleAddModal,
+      reload: true
+    });
+  };
+  editToggle = () => {
+    this.setState({ toggleEditModal: !this.state.toggleEditModal });
+  };
+  rowEvents = {
+    onClick: (e, row, rowIndex) => {
+      this.setState({ rowData: row });
+      this.editToggle();
     }
   };
   render() {
@@ -145,17 +176,31 @@ class Batch extends Component {
           <Navbar />
           <DashboardContainer expanded={this.state.expanded}>
             {this.state.title}
-            <Table columns={this.state.columns} products={this.state.rows} />
+            <Table
+              columns={this.state.columns}
+              products={this.state.rows}
+              handleClick={this.rowEvents}
+            />
           </DashboardContainer>
         </Content>
         <FloatButton handleClick={this.toggle}></FloatButton>
         <Dialog
           toggle={this.toggle}
-          handleSubmit={this.handleSubmit}
+          handleSubmit={this.handleAdd}
           changeHandler={this.changeHandler}
-          isOpen={this.state.toggleModal}
-          title={this.state.title}
+          isOpen={this.state.toggleAddModal}
+          title={`Add new ${this.state.title}`}
           dataField={this.state.columns}
+        ></Dialog>
+        <Dialog
+          toggle={this.editToggle}
+          handleSubmit={this.handleEdit}
+          handleDelete={this.handleDelete}
+          changeHandler={this.changeHandler}
+          isOpen={this.state.toggleEditModal}
+          title={`Edit this ${this.state.title}`}
+          dataField={this.state.columns}
+          value={this.state.rowData}
         ></Dialog>
       </Fragment>
     );

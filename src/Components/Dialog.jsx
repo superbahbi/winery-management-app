@@ -14,20 +14,25 @@ import {
 // import styled from "styled-components";
 class Dialog extends Component {
   render() {
+    let editData = [];
+    if (this.props.value) {
+      editData = Object.values(this.props.value);
+    }
     return (
       <Fragment>
         <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
           <Form onSubmit={this.props.handleSubmit}>
             <ModalHeader toggle={this.props.toggle}>
-              Add {this.props.title}
+              {this.props.title}
             </ModalHeader>
             <ModalBody>
               {this.props &&
-                this.props.dataField.slice(1).map((field, index) => (
+                this.props.dataField.map((field, index) => (
                   <FormGroup key={index}>
-                    <Label for="batchCode">{field.text}</Label>
+                    {field.text !== "Id" && <Label>{field.text}</Label>}
                     <Input
-                      type="text"
+                      type={field.dataField === "id" ? "hidden" : "text"}
+                      defaultValue={editData[index]}
                       name={field.dataField}
                       placeholder=""
                       onChange={this.props.changeHandler}
@@ -36,6 +41,16 @@ class Dialog extends Component {
                 ))}
             </ModalBody>
             <ModalFooter>
+              {this.props.value ? (
+                <Button
+                  type="button"
+                  onClick={this.props.handleDelete}
+                  color="danger"
+                >
+                  Delete
+                </Button>
+              ) : null}
+
               <Button color="primary" type="submit">
                 Save
               </Button>
