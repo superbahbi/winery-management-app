@@ -69,14 +69,16 @@ function logout() {
 }
 
 function checkTokenExpire() {
-  const token = currentUserSubject.value.token;
-  var decodedToken = jwt.decode(token, { complete: true });
+  if (currentUserSubject.value) {
+    const token = currentUserSubject.value.token;
+    var decodedToken = jwt.decode(token, { complete: true });
 
-  const tokenExpiration = decodedToken.payload.exp;
-  const tokenExpirationTimeInSeconds =
-    tokenExpiration - moment(Math.floor(Date.now() / 1000));
-  if (tokenExpiration && tokenExpirationTimeInSeconds < 20) {
-    localStorage.removeItem("currentUser");
-    currentUserSubject.next(null);
+    const tokenExpiration = decodedToken.payload.exp;
+    const tokenExpirationTimeInSeconds =
+      tokenExpiration - moment(Math.floor(Date.now() / 1000));
+    if (tokenExpiration && tokenExpirationTimeInSeconds < 20) {
+      localStorage.removeItem("currentUser");
+      currentUserSubject.next(null);
+    }
   }
 }
