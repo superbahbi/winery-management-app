@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
 import { authenticationService } from "../_services";
 import { history } from "../_helpers";
 import styled from "styled-components";
@@ -175,10 +174,5 @@ class Login extends Component {
     );
   }
 }
-
-Login.propTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired
-};
 
 export default Login;
