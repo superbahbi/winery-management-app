@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
 import { history } from "../_helpers";
 import { authenticationService } from "../_services";
 import styled from "styled-components";
@@ -78,22 +77,22 @@ class Signup extends Component {
       isSubmitting: false,
       status: [],
       companyCode: {
-        value: null
+        value: ""
       },
       fullname: {
-        value: null
+        value: ""
       },
       email: {
-        value: null
+        value: ""
       },
       username: {
-        value: null
+        value: ""
       },
       password: {
-        value: null
+        value: ""
       },
       repeatPassword: {
-        value: null
+        value: ""
       },
       error: null,
       data: null
@@ -103,13 +102,6 @@ class Signup extends Component {
       this.props.history.push("/dashboard");
     }
   }
-  //   componentWillMount() {}
-  //   componentDidMount() {}
-  //   componentWillReceiveProps(nextProps) {}
-  //   shouldComponentUpdate(nextProps, nextState) {}
-  //   componentWillUpdate(nextProps, nextState) {}
-  //   componentDidUpdate(prevProps, prevState) {}
-  //   componentWillUnmount() {}
   handleClick = async event => {
     event.preventDefault();
     this.setState({ status: false });
@@ -192,6 +184,7 @@ class Signup extends Component {
                 name="username"
                 value={this.state.username.value}
                 onChange={this.changeHandler}
+                autoComplete="username"
               />
             </FormGroup>
             <FormGroup>
@@ -201,6 +194,7 @@ class Signup extends Component {
                 name="password"
                 value={this.state.password.value}
                 onChange={this.changeHandler}
+                autoComplete="new-password"
               />
             </FormGroup>
             <FormGroup>
@@ -210,6 +204,7 @@ class Signup extends Component {
                 name="repeatPassword"
                 value={this.state.repeatPassword.value}
                 onChange={this.changeHandler}
+                autoComplete="new-password"
               />
             </FormGroup>
             <FormGroup>
@@ -238,14 +233,5 @@ class Signup extends Component {
     );
   }
 }
-
-Signup.propTypes = {
-  companyCode: PropTypes.string.isRequired,
-  fullname: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  repeatPassword: PropTypes.string.isRequired
-};
 
 export default Signup;
