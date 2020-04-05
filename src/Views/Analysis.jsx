@@ -8,6 +8,11 @@ class Analysis extends Component {
       page: "Analysis",
       columns: [
         {
+          dataField: "id",
+          text: "Id",
+          hidden: true
+        },
+        {
           dataField: "labID",
           text: "Lab ID",
           sort: true
@@ -43,7 +48,7 @@ class Analysis extends Component {
           sort: true
         },
         {
-          dataField: "actions",
+          dataField: "action",
           text: "Action",
           sort: true
         }

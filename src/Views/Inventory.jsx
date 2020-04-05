@@ -6,7 +6,6 @@ class Inventory extends Component {
     super(props);
     this.state = {
       page: "Inventory",
-      rows: [],
       columns: [
         {
           dataField: "id",
@@ -29,7 +28,7 @@ class Inventory extends Component {
           sort: true
         },
         {
-          dataField: "zipCode",
+          dataField: "zipcode",
           text: "Zip Code",
           sort: true
         }

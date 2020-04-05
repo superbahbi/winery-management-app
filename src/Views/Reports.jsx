@@ -6,7 +6,6 @@ class Reports extends Component {
     super(props);
     this.state = {
       page: "Reports",
-      products: [],
       columns: [
         {
           dataField: "id",
