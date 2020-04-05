@@ -46,6 +46,9 @@ class Inventory extends Component {
   }
 }
 
-Inventory.propTypes = { title: PropTypes.string };
+Inventory.propTypes = {
+  page: PropTypes.string,
+  columns: PropTypes.array
+};
 
 export default Inventory;

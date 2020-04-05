@@ -64,6 +64,9 @@ class Vessel extends Component {
   }
 }
 
-Vessel.propTypes = { title: PropTypes.string };
+Vessel.propTypes = {
+  page: PropTypes.string,
+  columns: PropTypes.array
+};
 
 export default Vessel;

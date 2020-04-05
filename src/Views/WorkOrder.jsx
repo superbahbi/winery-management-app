@@ -54,6 +54,9 @@ class WorkOrder extends Component {
   }
 }
 
-WorkOrder.propTypes = { title: PropTypes.string };
+WorkOrder.propTypes = {
+  page: PropTypes.string,
+  columns: PropTypes.array
+};
 
 export default WorkOrder;

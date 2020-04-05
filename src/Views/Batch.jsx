@@ -77,7 +77,6 @@ class Batch extends Component {
 
 Batch.propTypes = {
   page: PropTypes.string,
-  product: PropTypes.array,
   columns: PropTypes.array
 };
 
