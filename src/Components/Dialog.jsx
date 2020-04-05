@@ -11,7 +11,6 @@ import {
   Label,
   Input
 } from "reactstrap";
-// import styled from "styled-components";
 class Dialog extends Component {
   render() {
     let editData = [];
@@ -36,6 +35,10 @@ class Dialog extends Component {
                       name={field.dataField}
                       placeholder=""
                       onChange={this.props.changeHandler}
+                      required
+                      autoComplete="off"
+                      minLength={field.minLength}
+                      maxLength={field.maxLength}
                     />
                   </FormGroup>
                 ))}
