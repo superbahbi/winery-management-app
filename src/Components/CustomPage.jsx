@@ -33,12 +33,13 @@ class CustomPage extends Component {
       rowData: [],
       value: [],
       rows: [],
+      error: [],
       columns: this.props.columns
     };
   }
   componentDidMount() {
     fetchService
-      .getAllData(this.state.page)
+      .fetchDataFromDB(this.state.page, "GET")
       .then(response => {
         return response.json();
       })
@@ -49,7 +50,7 @@ class CustomPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.reload) {
       fetchService
-        .getAllData(this.state.page)
+        .fetchDataFromDB(this.state.page, "GET")
         .then(response => {
           return response.json();
         })
@@ -67,38 +68,22 @@ class CustomPage extends Component {
       }
     }));
   };
-  handleAdd = async event => {
+  handleEvent = method => event => {
     event.preventDefault();
     fetchService
-      .addData(this.state.page, this.state.rowData)
+      .fetchDataFromDB(this.state.page, method, this.state.rowData)
       .then(response => {
         return response.json();
       })
-      .then(data => {});
+      .then(data => {
+        this.setState({ error: data });
+      });
     this.setState({ rowData: [] });
-    this.addToggle();
-  };
-  handleEdit = async event => {
-    event.preventDefault();
-    fetchService
-      .editData(this.state.page, this.state.rowData)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {});
-    this.setState({ rowData: [], reload: true });
-    this.editToggle();
-  };
-  handleDelete = async event => {
-    event.preventDefault();
-    fetchService
-      .deleteData(this.state.page, this.state.rowData)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {});
-    this.setState({ rowData: [], reload: true });
-    this.editToggle();
+    if (method === "PUT" || method === "DELETE") {
+      this.editToggle();
+    } else {
+      this.addToggle();
+    }
   };
   addToggle = () => {
     this.setState({
@@ -107,7 +92,10 @@ class CustomPage extends Component {
     });
   };
   editToggle = () => {
-    this.setState({ toggleEditModal: !this.state.toggleEditModal });
+    this.setState({
+      toggleEditModal: !this.state.toggleEditModal,
+      reload: true
+    });
   };
   rowEvents = {
     onClick: (e, row, rowIndex) => {
@@ -132,7 +120,7 @@ class CustomPage extends Component {
         <FloatButton handleClick={this.addToggle}></FloatButton>
         <Dialog
           toggle={this.addToggle}
-          handleSubmit={this.handleAdd}
+          handleSubmit={this.handleEvent("POST")}
           changeHandler={this.changeHandler}
           isOpen={this.state.toggleAddModal}
           title={`Add new ${this.state.page}`}
@@ -140,8 +128,8 @@ class CustomPage extends Component {
         ></Dialog>
         <Dialog
           toggle={this.editToggle}
-          handleSubmit={this.handleEdit}
-          handleDelete={this.handleDelete}
+          handleSubmit={this.handleEvent("PUT")}
+          handleDelete={this.handleEvent("DELETE")}
           changeHandler={this.changeHandler}
           isOpen={this.state.toggleEditModal}
           title={`Edit this ${this.state.page}`}
