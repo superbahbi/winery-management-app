@@ -22,7 +22,7 @@ function Routes() {
       <Fragment>
         <div>
           <Switch>
-            <Route path="/" component={Index} exact />
+            <Route path="/" component={DashboardView} exact />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <PrivateRoute path="/dashboard" component={DashboardView} />

@@ -9,7 +9,7 @@ class Batch extends Component {
       "Fermentation",
       "ML Fermentation",
       "Press",
-      "Aging"
+      "Aging",
     ];
     this.state = {
       page: "Batch",
@@ -17,53 +17,53 @@ class Batch extends Component {
         {
           dataField: "id",
           text: "Id",
-          hidden: true
+          hidden: true,
         },
         {
           dataField: "batchCode",
           text: "Batch Code",
-          sort: true
+          sort: true,
         },
         {
           dataField: "vintage",
           text: "Vintage",
           sort: true,
-          headerTitle: true
+          headerTitle: true,
         },
         {
           dataField: "varietal",
           text: "Varietal",
-          sort: true
+          sort: true,
         },
         {
-          dataField: "clone",
-          text: "Clone",
-          sort: true
+          dataField: "block",
+          text: "Block",
+          sort: true,
         },
         {
           dataField: "vineyard",
           text: "Vineyard",
-          sort: true
+          sort: true,
         },
         {
           dataField: "appellation",
           text: "Appellation",
-          sort: true
+          sort: true,
         },
         {
           dataField: "stage",
           text: "Stage",
           sort: true,
           formatter: (cell, row) => types[cell],
-          sortValue: (cell, row) => types[cell]
+          sortValue: (cell, row) => types[cell],
         },
         {
           dataField: "volume",
           text: "Volume",
           sort: true,
-          formatter: (cell, row) => `${cell} gallons`
-        }
-      ]
+          formatter: (cell, row) => `${cell} gallons`,
+        },
+      ],
     };
   }
   render() {
@@ -77,7 +77,7 @@ class Batch extends Component {
 
 Batch.propTypes = {
   page: PropTypes.string,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default Batch;
