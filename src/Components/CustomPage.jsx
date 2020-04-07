@@ -12,7 +12,7 @@ const DashboardContainer = styled.main`
   overflow: hidden;
   transition: all 0.15s;
   padding: 0 20px;
-  margin-left: ${props => (props.expanded ? 240 : 85)}px;
+  margin-left: ${(props) => (props.expanded ? 240 : 85)}px;
 `;
 const Content = styled.div`
   height: 100vh
@@ -34,16 +34,16 @@ class CustomPage extends Component {
       value: [],
       rows: [],
       error: [],
-      columns: this.props.columns
+      columns: this.props.columns,
     };
   }
   componentDidMount() {
     fetchService
       .fetchDataFromDB(this.state.page, "GET")
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         this.setState({ rows: data });
       });
   }
@@ -51,31 +51,39 @@ class CustomPage extends Component {
     if (this.state.reload) {
       fetchService
         .fetchDataFromDB(this.state.page, "GET")
-        .then(response => {
+        .then((response) => {
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           this.setState({ rows: data, reload: false });
         });
     }
   }
-  changeHandler = event => {
+  changeHandler = (event) => {
     event.persist();
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       rowData: {
         ...prevState.rowData,
-        [event.target.name]: event.target.value
-      }
+        [event.target.name]: event.target.value,
+      },
     }));
   };
-  handleEvent = method => event => {
+  selectChange = (name) => (newValue: any) => {
+    this.setState((prevState) => ({
+      rowData: {
+        ...prevState.rowData,
+        [name]: newValue.value,
+      },
+    }));
+  };
+  handleEvent = (method) => (event) => {
     event.preventDefault();
     fetchService
       .fetchDataFromDB(this.state.page, method, this.state.rowData)
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         this.setState({ error: data });
       });
     this.setState({ rowData: [] });
@@ -88,20 +96,20 @@ class CustomPage extends Component {
   addToggle = () => {
     this.setState({
       toggleAddModal: !this.state.toggleAddModal,
-      reload: true
+      reload: true,
     });
   };
   editToggle = () => {
     this.setState({
       toggleEditModal: !this.state.toggleEditModal,
-      reload: true
+      reload: true,
     });
   };
   rowEvents = {
     onClick: (e, row, rowIndex) => {
       this.setState({ rowData: row });
       this.editToggle();
-    }
+    },
   };
   render() {
     return (
@@ -125,6 +133,8 @@ class CustomPage extends Component {
           isOpen={this.state.toggleAddModal}
           title={`Add new ${this.state.page}`}
           dataField={this.state.columns}
+          options={this.props.options}
+          selectChange={this.selectChange}
         ></Dialog>
         <Dialog
           toggle={this.editToggle}
@@ -135,6 +145,8 @@ class CustomPage extends Component {
           title={`Edit this ${this.state.page}`}
           dataField={this.state.columns}
           value={this.state.rowData}
+          options={this.props.options}
+          selectChange={this.selectChange}
         ></Dialog>
       </Fragment>
     );
@@ -144,7 +156,7 @@ class CustomPage extends Component {
 CustomPage.propTypes = {
   page: PropTypes.string,
   product: PropTypes.array,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default CustomPage;

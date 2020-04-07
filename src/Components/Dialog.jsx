@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import Select from "react-select";
 import {
   Button,
   Modal,
@@ -9,8 +10,9 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
 } from "reactstrap";
+
 class Dialog extends Component {
   render() {
     let editData = [];
@@ -29,17 +31,26 @@ class Dialog extends Component {
                 this.props.dataField.map((field, index) => (
                   <FormGroup key={index}>
                     {field.text !== "Id" && <Label>{field.text}</Label>}
-                    <Input
-                      type={field.dataField === "id" ? "hidden" : "text"}
-                      defaultValue={editData[index]}
-                      name={field.dataField}
-                      placeholder=""
-                      onChange={this.props.changeHandler}
-                      required
-                      autoComplete="off"
-                      minLength={field.minLength}
-                      maxLength={field.maxLength}
-                    />
+                    {field.type !== "select" ? (
+                      <Input
+                        type={field.dataField === "id" ? "hidden" : "text"}
+                        defaultValue={editData[index]}
+                        name={field.dataField}
+                        placeholder=""
+                        onChange={this.props.changeHandler}
+                        required
+                        autoComplete="off"
+                        minLength={field.minLength}
+                        maxLength={field.maxLength}
+                      />
+                    ) : (
+                      <Select
+                        defaultValue={this.props.options[editData[index]]}
+                        name={field.dataField}
+                        options={this.props.options}
+                        onChange={this.props.selectChange(field.dataField)}
+                      />
+                    )}
                   </FormGroup>
                 ))}
             </ModalBody>
@@ -66,7 +77,7 @@ class Dialog extends Component {
 }
 
 Dialog.propTypes = {
-  batchCode: PropTypes.string
+  batchCode: PropTypes.string,
 };
 
 export default Dialog;

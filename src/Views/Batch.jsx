@@ -13,6 +13,13 @@ class Batch extends Component {
     ];
     this.state = {
       page: "Batch",
+      options: [
+        { value: "0", label: "Processing" },
+        { value: "1", label: "Fermentation" },
+        { value: "2", label: "ML Fermentation" },
+        { value: "3", label: "Press" },
+        { value: "4", label: "Aging" },
+      ],
       columns: [
         {
           dataField: "id",
@@ -54,6 +61,7 @@ class Batch extends Component {
           dataField: "stage",
           text: "Stage",
           sort: true,
+          type: "select",
           formatter: (cell, row) => types[cell],
           sortValue: (cell, row) => types[cell],
         },
@@ -69,7 +77,11 @@ class Batch extends Component {
   render() {
     return (
       <Fragment>
-        <CustomPage page={this.state.page} columns={this.state.columns} />
+        <CustomPage
+          page={this.state.page}
+          columns={this.state.columns}
+          options={this.state.options}
+        />
       </Fragment>
     );
   }
