@@ -4,55 +4,76 @@ import CustomPage from "../Components/CustomPage";
 class Vessel extends Component {
   constructor(props) {
     super(props);
+    const type = {
+      type: ["Barrel", "Tank", "PT"],
+      status: ["Empty", "Full", "Sanitize"],
+    };
     this.state = {
       page: "Vessel",
       columns: [
         {
           dataField: "id",
           text: "Id",
-          hidden: true
+          hidden: true,
         },
         {
           dataField: "vesselCode",
           text: "Vessel Code",
-          sort: true
+          sort: true,
         },
         {
           dataField: "batchCode",
           text: "Batch Code",
-          sort: true
+          sort: true,
         },
         {
           dataField: "type",
           text: "Type",
-          sort: true
+          type: "select",
+          sort: true,
+          options: [
+            { value: "0", label: "Barrel" },
+            { value: "1", label: "Tank" },
+            { value: "2", label: "PT" },
+          ],
+          formatter: (cell, row) => type.type[cell],
+          sortValue: (cell, row) => type.type[cell],
         },
+
         {
           dataField: "currentVolume",
           text: "Content",
-          sort: true
+          sort: true,
         },
         {
           dataField: "maxVolume",
           text: "Capacity",
-          sort: true
+          sort: true,
         },
         {
           dataField: "status",
           text: "Status",
-          sort: true
+          type: "select",
+          sort: true,
+          options: [
+            { value: "0", label: "Empty" },
+            { value: "1", label: "Full" },
+            { value: "2", label: "Sanitize" },
+          ],
+          formatter: (cell, row) => type.status[cell],
+          sortValue: (cell, row) => type.status[cell],
         },
         {
           dataField: "toast",
           text: "Toast",
-          sort: true
+          sort: true,
         },
         {
           dataField: "cooper",
           text: "Cooper",
-          sort: true
-        }
-      ]
+          sort: true,
+        },
+      ],
     };
   }
   render() {
@@ -66,7 +87,7 @@ class Vessel extends Component {
 
 Vessel.propTypes = {
   page: PropTypes.string,
-  columns: PropTypes.array
+  columns: PropTypes.array,
 };
 
 export default Vessel;
