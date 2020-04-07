@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Router, Route, Switch } from "react-router-dom";
-import Index from "./Views/Index";
 import Login from "./Views/Login";
 import Signup from "./Views/Signup";
 import DashboardView from "./Views/Dashboard";

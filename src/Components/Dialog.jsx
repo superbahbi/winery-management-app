@@ -45,9 +45,9 @@ class Dialog extends Component {
                       />
                     ) : (
                       <Select
-                        defaultValue={this.props.options[editData[index]]}
+                        defaultValue={field.options[editData[index]]}
                         name={field.dataField}
-                        options={this.props.options}
+                        options={field.options}
                         onChange={this.props.selectChange(field.dataField)}
                       />
                     )}

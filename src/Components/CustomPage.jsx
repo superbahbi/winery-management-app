@@ -24,7 +24,6 @@ const Title = styled.h4`
 class CustomPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       page: this.props.page,
       toggleAddModal: false,
@@ -68,7 +67,7 @@ class CustomPage extends Component {
       },
     }));
   };
-  selectChange = (name) => (newValue: any) => {
+  selectChange = (name) => (newValue) => {
     this.setState((prevState) => ({
       rowData: {
         ...prevState.rowData,
