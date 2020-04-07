@@ -4,22 +4,11 @@ import CustomPage from "../Components/CustomPage";
 class Batch extends Component {
   constructor(props) {
     super(props);
-    const types = [
-      "Processing",
-      "Fermentation",
-      "ML Fermentation",
-      "Press",
-      "Aging",
-    ];
+    const type = {
+      type: ["Processing", "Fermentation", "ML Fermentation", "Press", "Aging"],
+    };
     this.state = {
       page: "Batch",
-      options: [
-        { value: "0", label: "Processing" },
-        { value: "1", label: "Fermentation" },
-        { value: "2", label: "ML Fermentation" },
-        { value: "3", label: "Press" },
-        { value: "4", label: "Aging" },
-      ],
       columns: [
         {
           dataField: "id",
@@ -62,8 +51,15 @@ class Batch extends Component {
           text: "Stage",
           sort: true,
           type: "select",
-          formatter: (cell, row) => types[cell],
-          sortValue: (cell, row) => types[cell],
+          options: [
+            { value: "0", label: "Processing" },
+            { value: "1", label: "Fermentation" },
+            { value: "2", label: "ML Fermentation" },
+            { value: "3", label: "Press" },
+            { value: "4", label: "Aging" },
+          ],
+          formatter: (cell, row) => type.type[cell],
+          sortValue: (cell, row) => type.type[cell],
         },
         {
           dataField: "volume",
@@ -77,11 +73,7 @@ class Batch extends Component {
   render() {
     return (
       <Fragment>
-        <CustomPage
-          page={this.state.page}
-          columns={this.state.columns}
-          options={this.state.options}
-        />
+        <CustomPage page={this.state.page} columns={this.state.columns} />
       </Fragment>
     );
   }
